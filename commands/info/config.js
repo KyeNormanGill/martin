@@ -15,7 +15,7 @@ module.exports = class ConfigCommand extends Command {
 		});
 	}
 
-	run(message, args) {
+	run(message) {
 		let text = `Configuration for **${message.guild.name}**\n\n`;
 		const embed = new RichEmbed().setColor(colour);
 

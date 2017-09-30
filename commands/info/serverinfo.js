@@ -13,7 +13,7 @@ module.exports = class ServerInfoCommand extends Command {
 		});
 	}
 
-	run(message, args) {
-
+	run(message) {
+		// TBC
 	}
 };
