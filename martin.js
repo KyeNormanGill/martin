@@ -52,7 +52,7 @@ client.once('ready', () => {
 	setInterval(() => {
 		client.users.forEach(user => {
 			if (user.money) {
-				Users.upsert({ UserId: user.id, Money: user.money });
+				Users.upsert({ UserId: user.id, Money: user.money, Experience: user.experience });
 			}
 		});
 	}, 600000);
