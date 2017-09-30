@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const options = {
 	ownerId: '189696688657530880',
-	prefix: 'm$',
+	prefix: 'm)',
 	commandPath: path.join(__dirname, '..', 'commands')
 };
 
