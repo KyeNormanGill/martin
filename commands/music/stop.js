@@ -13,7 +13,7 @@ module.exports = class PlayCommand extends Command {
 	}
 
 	run(message) {
-		if (message.channel.permissionsFor(message.member).has('MANAGE_GUILD') || message.client.isOwner(message.author.id)) {
+		if (message.channel.permissionsFor(message.member).has('MANAGE_GUILD') || message.client.owners.includes(message.author.id)) {
 			const voiceChannel = message.guild.me.voiceChannel;
 			if (!voiceChannel) return error('I can\'t end the music if i\'m not in a voice channel.', message);
 			if (!voiceChannel.members.has(message.author.id)) return error('You\'re not in the voice channel playing music.', message);
