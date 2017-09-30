@@ -12,7 +12,6 @@ module.exports = class PlayCommand extends Command {
 			description: 'Play a song in your voice channel!',
 			guildOnly: true,
 			aliases: ['song'],
-			ownerOnly: true,
 			group: group
 		});
 	}
