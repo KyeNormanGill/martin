@@ -22,7 +22,7 @@ module.exports = class QueueCommand extends Command {
 		let queueTxt = '';
 
 		queue.forEach(song => {
-			queueTxt += `${song.requestedBy} - ${song.name} - ${song.length}`;
+			queueTxt += `${song.requestedBy} - ${song.name} - ${song.length}\n`;
 		});
 
 		const embed = new RichEmbed()
