@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
 const { RichEmbed } = require('discord.js');
 const { error } = require('../../util.js');
-const { colour } = require('../../config.js');
+const { colour } = require('../../config.json');
 
 module.exports = class QueueCommand extends Command {
 	constructor(group) {
