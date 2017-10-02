@@ -5,7 +5,7 @@ module.exports = class PlayCommand extends Command {
 	constructor(group) {
 		super({
 			name: 'stop',
-			description: 'Send all the music in the queue.',
+			description: 'Stop all the music in the queue.',
 			guildOnly: true,
 			aliases: ['end', 'stopall'],
 			group: group
