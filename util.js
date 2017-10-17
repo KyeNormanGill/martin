@@ -1,5 +1,4 @@
 const path = require('path');
-const Discord = require('discord.js');
 
 function findUser(message, args) {
 	return message.client.users.get(args)
