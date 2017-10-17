@@ -31,7 +31,7 @@ class Dispatcher {
 
 		// Get command name.
 		const commandName = isMention
-			? message.content.split(' ').slice(1)[0] ? message.content.split(' ').slice(1)[0] : ''
+			? message.content.split(' ').slice(1)[0] && ''
 			: message.content.slice(prefix.length).split(' ')[0].toLowerCase();
 
 		// Get command.
