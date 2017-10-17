@@ -74,13 +74,7 @@ class Dispatcher {
 			}
 		}
 
-		// Get args.
-		let args;
-		if (isMention) {
-			args = message.content.split(' ').slice(2).join(' ');
-		} else {
-			args = message.content.split(' ').slice(1).join(' ');
-		}
+		const args = message.content.split(' ').slice(isMention ? 2 : 1).join(' ');
 
 		try {
 			// Run command.
