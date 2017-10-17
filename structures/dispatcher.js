@@ -30,12 +30,9 @@ class Dispatcher {
 		if (!message.content.startsWith(prefix) && !isMention) return;
 
 		// Get command name.
-		let commandName;
-		if (isMention) {
-			commandName = message.content.split(' ').slice(1)[0] ? message.content.split(' ').slice(1)[0] : '';
-		} else {
-			commandName = message.content.slice(prefix.length).split(' ')[0].toLowerCase();
-		}
+		const commandName = isMention
+			? message.content.split(' ').slice(1)[0] ? message.content.split(' ').slice(1)[0] : ''
+			: message.content.slice(prefix.length).split(' ')[0].toLowerCase();
 
 		// Get command.
 		const command = message.client.commands.get(commandName)
