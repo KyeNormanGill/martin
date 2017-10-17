@@ -26,6 +26,9 @@ class Dispatcher {
 		const regex = new RegExp(`^<@!?${message.client.user.id}>`);
 		const isMention = regex.test(message.content);
 
+		// Prefix check.
+		if (!message.content.startsWith(prefix) && !isMention) return;
+
 		// Get command name.
 		let commandName;
 		if (isMention) {
@@ -33,9 +36,6 @@ class Dispatcher {
 		} else {
 			commandName = message.content.slice(prefix.length).split(' ')[0].toLowerCase();
 		}
-
-		// Prefix check.
-		if (!message.content.startsWith(prefix) && !isMention) return;
 
 		// Get command.
 		const command = message.client.commands.get(commandName)
