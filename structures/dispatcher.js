@@ -39,10 +39,7 @@ class Dispatcher {
 				|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		// Command check.
-		if (!command) {
-			if (message.client.unknownCommandResponse) message.reply('unknown command!').catch(console.log);
-			return;
-		}
+		if (!command) return;
 
 		// Send message perm check.
 		if (message.channel.type === 'text' && !message.channel.permissionsFor(message.client.user).has('SEND_MESSAGES')) {
