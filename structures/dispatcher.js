@@ -71,6 +71,7 @@ class Dispatcher {
 			}
 		}
 
+		// Get arguments in message.
 		const args = message.content.split(' ').slice(isMention ? 2 : 1).join(' ');
 
 		try {
