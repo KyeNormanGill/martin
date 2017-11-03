@@ -15,6 +15,7 @@ class Martin extends Client {
 		this.ownerId = options.ownerId;
 		this.prefix = options.prefix;
 		this.commandPath = options.commandPath;
+		this.streamedRecently = [];
 		this.commands = new Collection();
 		this.groups = new Collection();
 		this.queues = new Collection();
