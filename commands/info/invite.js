@@ -1,6 +1,4 @@
 const Command = require('../../structures/command.js');
-const { RichEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
 
 module.exports = class ConfigCommand extends Command {
 	constructor(group) {
