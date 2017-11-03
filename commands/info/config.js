@@ -8,7 +8,6 @@ module.exports = class ConfigCommand extends Command {
 			name: 'config',
 			description: 'Shows the status of your servers configuration.',
 			guildOnly: true,
-			ownerOnly: true,
 			aliases: ['configuration', 'settings'],
 			perms: ['EMBED_LINKS'],
 			group: group
