@@ -1,4 +1,4 @@
-function handle(oldMem, newMem) {
+module.exports = function handle(oldMem, newMem) {
 	if (!oldMem.guild.me.voiceChannel) return;
 	if (oldMem.voiceChannel === oldMem.guild.me.voiceChannel && newMem.voiceChannel !== newMem.guild.me.voiceChannel && newMem.guild.me.voiceChannel.members.size === 1) {
 		const voiceChannel = newMem.guild.me.voiceChannel;
@@ -7,6 +7,4 @@ function handle(oldMem, newMem) {
 		voiceChannel.leave();
 		newMem.send('There\'s no one left to listen to music. Shutting off!');
 	}
-}
-
-exports.handle = handle;
+};

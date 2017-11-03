@@ -2,7 +2,7 @@ const snekfetch = require('snekfetch');
 const { twitch: twitchKey } = require('../config.json').keys;
 const Canvas = require('canvas');
 
-async function handle(oldMem, newMem) {
+module.exports = async function handle(oldMem, newMem) {
 	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
 		.find(chnl => chnl.topic.includes('(twitch)'));
 	if (!channel) return;
@@ -51,6 +51,4 @@ async function handle(oldMem, newMem) {
 				}, 21600000);
 			}).catch(console.error);
 	}
-}
-
-exports.handle = handle;
+};

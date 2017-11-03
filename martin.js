@@ -58,9 +58,9 @@ client.once('ready', () => {
 	}, 600000);
 });
 
-client.on('voiceStateUpdate', (oldMem, newMem) => require('./events/voiceStateUpdate.js').handle(oldMem, newMem));
-client.on('presenceUpdate', (oldMem, newMem) => require('./events/presenceUpdate.js').handle(oldMem, newMem));
-client.on('guildMemberRemove', mem => require('./events/guildMemberRemove.js').handle(mem));
-client.on('guildMemberAdd', mem => require('./events/guildMemberAdd.js').handle(mem));
+client.on('voiceStateUpdate', (oldMem, newMem) => require('./events/voiceStateUpdate.js')(oldMem, newMem));
+client.on('presenceUpdate', (oldMem, newMem) => require('./events/presenceUpdate.js')(oldMem, newMem));
+client.on('guildMemberRemove', mem => require('./events/guildMemberRemove.js')(mem));
+client.on('guildMemberAdd', mem => require('./events/guildMemberAdd.js')(mem));
 
 client.login(token);
