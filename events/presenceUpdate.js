@@ -4,7 +4,7 @@ const { createCanvas, Image } = require('canvas');
 
 module.exports = async function handle(oldMem, newMem) {
 	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
-		.find(chnl => chnl.topic.includes('(twitch)'));
+		.find(chnl => chnl.topic.includes('[twitch]'));
 	if (!channel) return;
 
 	if (newMem.user.presence.game && newMem.user.presence.game.streaming && !newMem.client.streamedRecently.includes(newMem.id)) {

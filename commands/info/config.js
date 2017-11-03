@@ -21,7 +21,7 @@ module.exports = class ConfigCommand extends Command {
 
 		const channels = message.guild.channels.filter(Gchannel => Gchannel.type === 'text').filter(t => t.topic);
 
-		const tags = [{ name: '(join)', found: false }, { name: '(leave)', found: false }, { name: '(twitch)', found: false }];
+		const tags = [{ name: '[join]', found: false }, { name: '[leave]', found: false }, { name: '[twitch]', found: false }];
 
 		tags.forEach(tag => {
 			channels.forEach(c => {

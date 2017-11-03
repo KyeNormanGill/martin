@@ -6,6 +6,6 @@ module.exports = function handle(mem) {
 		.setAuthor(`${mem.user.tag} - ${mem.id}`, mem.user.avatarURL)
 		.setFooter('User left')
 		.setTimestamp(new Date());
-	const channel = mem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic).find(chnl => chnl.topic.includes('(leave)'));
+	const channel = mem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic).find(chnl => chnl.topic.includes('[leave]'));
 	if (channel) channel.send({ embed });
 };
