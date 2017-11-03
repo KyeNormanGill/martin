@@ -3,17 +3,19 @@ const { twitch: twitchKey } = require('../config.json').keys;
 const Canvas = require('canvas');
 
 module.exports = async function handle(oldMem, newMem) {
+	console.log('update');
 	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
 		.find(chnl => chnl.topic.includes('(twitch)'));
 	if (!channel) return;
-
-	if (newMem.user.presence.game && newMem.user.presence.game.streaming && !newMem.client.streamedRecently.includes(newMem.id)) {
+	console.log('channel found');
+	if (newMem.user.presence.game && newMem.user.presence.game.streaming/* && !newMem.client.streamedRecently.includes(newMem.id)*/) {
+		console.log('streaming');
 		const streamID = newMem.user.presence.game.url.split('/').slice(3).join();
 		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${twitchKey}`;
 
 		const { body: twitch } = await snekfetch.get(url);
 		const { body: background } = await snekfetch.get(twitch.stream.preview.large);
-
+		console.log('called');
 		const canvas = new Canvas(550, 400);
 		const ctx = canvas.getContext('2d');
 		const { Image } = Canvas;
@@ -40,7 +42,7 @@ module.exports = async function handle(oldMem, newMem) {
 		bg.src = background;
 
 		ctx.drawImage(bg, 19, 19, 512, 288);
-
+		console.log('drew');
 		channel.send(`Go check them out! <${twitch.stream.channel.url}>`, { files: [{ attachment: canvas.toBuffer() }] })
 			.then(() => {
 				console.log(`Added ${newMem.username} to streamed recently`);
