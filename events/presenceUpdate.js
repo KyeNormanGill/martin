@@ -1,6 +1,6 @@
 const snekfetch = require('snekfetch');
 const { twitch: twitchKey } = require('../config.json').keys;
-const Canvas = require('canvas');
+const { createCanvas, Image } = require('canvas');
 
 module.exports = async function handle(oldMem, newMem) {
 	console.log('update');
@@ -16,9 +16,8 @@ module.exports = async function handle(oldMem, newMem) {
 		const { body: twitch } = await snekfetch.get(url);
 		const { body: background } = await snekfetch.get(twitch.stream.preview.large);
 		console.log('called');
-		const canvas = new Canvas(550, 400);
+		const canvas = createCanvas(550, 400);
 		const ctx = canvas.getContext('2d');
-		const { Image } = Canvas;
 
 		ctx.fillStyle = '#6441A4';
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
