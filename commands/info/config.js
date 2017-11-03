@@ -35,7 +35,7 @@ module.exports = class ConfigCommand extends Command {
 			}
 		});
 
-		embed.setDescription(text);
+		embed.setDescription(`${text}\nAdd each log into a channels category surrounded by [] to enable them in that channel. i.e. [twitch] to enable automatic twitch alerts for users in your server.`);
 
 		message.channel.send({ embed });
 	}
