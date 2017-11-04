@@ -12,6 +12,6 @@ module.exports = class ConfigCommand extends Command {
 	}
 
 	run(message) {
-		message.channel.send(`Here is an invite to **${message.client.user.username}'s** home!\nhttps://discord.gg/MBVyQdT\n\nHere is an invite link for the bot!\nhttps://discordapp.com/oauth2/authorize/?permissions=8&scope=bot&client_id=349952389589237762`);
+		message.channel.send(`Here is an invite to **${message.client.user.username}'s** home!\nhttps://discord.gg/MBVyQdT\n\nHere is an invite link for the bot!\n<https://discordapp.com/oauth2/authorize/?permissions=8&scope=bot&client_id=349952389589237762>`);
 	}
 };
