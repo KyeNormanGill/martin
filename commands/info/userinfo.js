@@ -29,7 +29,7 @@ module.exports = class UserInfoCommand extends Command {
 			const joinedAt = moment.utc(member.joinedTimestamp).format('MMM Do YYYY');
 			const guildName = message.guild.name;
 			const presence = user.presence.game ? user.presence.game.name : 'Nothing';
-			const roles = member.roles.reduce((prev, next) => `${prev}, ${next}`);
+			const roles = member.roles.map(r => r.toString()).slice(1).join(' ');
 
 			embed.setThumbnail(user.avatarURL)
 				.setColor(colour)
