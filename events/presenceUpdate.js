@@ -3,6 +3,7 @@ const { twitch: twitchKey } = require('../config.json').keys;
 const { createCanvas, Image } = require('canvas');
 
 module.exports = async function handle(oldMem, newMem) {
+	if (oldMem.user.bot) return;
 	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
 		.find(chnl => chnl.topic.includes('[twitch]'));
 	if (!channel) return;
