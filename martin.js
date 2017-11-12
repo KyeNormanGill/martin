@@ -17,7 +17,7 @@ const { token } = require('./config.json');
 const { oneLine } = require('common-tags');
 const db = require('./database/sqlite.js');
 const Users = require('./database/models/Users.js');
-const { updateStats } = require('./config.json');
+const { updateStats } = require('./util.js');
 
 const Handler = new Dispatcher();
 const client = new Client();
