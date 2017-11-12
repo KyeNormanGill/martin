@@ -95,7 +95,7 @@ module.exports = class ProfileCommand extends Command {
 
 		ctx.fillStyle = '#292929';
 		ctx.font = '28px NotoSans';
-		ctx.fillText(`${mem.user.experience || 0} / 40,000`, 570, 80);
+		ctx.fillText(`${mem.user.experience || 0} / ${expToNextLevel}`, 570, 80);
 
 		await message.channel.send({ files: [{ attachment: canvas.toBuffer() }] });
 	}
