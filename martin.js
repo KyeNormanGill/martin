@@ -62,5 +62,7 @@ client.on('voiceStateUpdate', (oldMem, newMem) => require('./events/voiceStateUp
 client.on('presenceUpdate', (oldMem, newMem) => require('./events/presenceUpdate.js')(oldMem, newMem));
 client.on('guildMemberRemove', mem => require('./events/guildMemberRemove.js')(mem));
 client.on('guildMemberAdd', mem => require('./events/guildMemberAdd.js')(mem));
+client.on('guildCreate', guild => require('./events/guildCreate.js')(guild));
+client.on('guildDelete', guild => require('./events/guildDelete.js')(guild));
 
 client.login(token);
