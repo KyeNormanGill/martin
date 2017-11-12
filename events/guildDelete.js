@@ -1,5 +1,5 @@
 const { RichEmbed } = require('discord.js');
-const { updateStats } = require('../config.json');
+const { updateStats } = require('../util.js');
 
 module.exports = function handle(guild) {
 	const embed = new RichEmbed()
