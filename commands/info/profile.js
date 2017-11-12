@@ -90,7 +90,7 @@ module.exports = class ProfileCommand extends Command {
 		ctx.fillRect(372.5, 52.5, 395, 35);
 
 		ctx.fillStyle = '#29e582';
-		const value = Math.min(Math.max(level / (level + expToNextLevel), 0), 1);
+		const value = Math.min(Math.max(50 / 100, 0), 1);
 		ctx.fillRect(372.5, 52.5, value * 395, 35);
 
 		ctx.fillStyle = '#292929';
