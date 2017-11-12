@@ -17,6 +17,7 @@ const { token } = require('./config.json');
 const { oneLine } = require('common-tags');
 const db = require('./database/sqlite.js');
 const Users = require('./database/models/Users.js');
+const { updateStats } = require('./config.json');
 
 const Handler = new Dispatcher();
 const client = new Client();
@@ -56,6 +57,8 @@ client.once('ready', () => {
 			}
 		});
 	}, 600000);
+
+	updateStats(client);
 });
 
 client.on('voiceStateUpdate', (oldMem, newMem) => require('./events/voiceStateUpdate.js')(oldMem, newMem));

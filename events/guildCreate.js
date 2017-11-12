@@ -1,4 +1,5 @@
 const { RichEmbed } = require('discord.js');
+const { updateStats } = require('../config.json');
 
 module.exports = function handle(guild) {
 	const embed = new RichEmbed()
@@ -9,4 +10,6 @@ module.exports = function handle(guild) {
 		.setFooter('Joined guild')
 		.setTimestamp(new Date());
 	guild.client.channels.get('379222540155092993').send({ embed });
+
+	updateStats(guild.client);
 };

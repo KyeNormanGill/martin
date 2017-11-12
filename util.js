@@ -1,4 +1,6 @@
 const path = require('path');
+const { post } = require('snekfetch');
+const { dbots, botspw } = require('./config.json');
 
 function findUser(message, args) {
 	return message.client.users.get(args)
@@ -31,9 +33,22 @@ function allTrue(array) {
 	return array.every(i => i);
 }
 
+function updateStats(client) {
+	post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
+		.set('Authorization', dbots)
+		.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
+		.end();
+
+	post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
+		.set('Authorization', botspw)
+		.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
+		.end();
+}
+
 exports.allTrue = allTrue;
 exports.findUser = findUser;
 exports.findChannel = findChannel;
 exports.stripPath = stripPath;
 exports.error = error;
 exports.findMember = findMember;
+exports.updateStats = updateStats;
