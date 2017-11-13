@@ -68,7 +68,8 @@ module.exports = class ProfileCommand extends Command {
 			[['Global rank', `#${rank || '-'}`], [680, 172], [680, 150]]
 		];
 		const level = expToLevel(mem.user.experience);
-		const expToNextLevel = expFromLevel(mem.user.experience);
+		const expToNextLevel = expTillLevel(mem.user.experience);
+		const expFromLastLevel = expFromLevel(mem.user.experience);
 
 		// Draw stats.
 		for (let i = 0; i < bottomPos.length; i++) {
@@ -90,7 +91,7 @@ module.exports = class ProfileCommand extends Command {
 		ctx.fillRect(372.5, 52.5, 395, 35);
 
 		ctx.fillStyle = '#29e582';
-		const value = Math.min(Math.max(1 / 3, 0), 1);
+		const value = Math.min(Math.max((mem.user.experience - expFromLastLevel) / expToNextLevel, 0), 1);
 		ctx.fillRect(372.5, 52.5, value * 395, 35);
 
 		ctx.fillStyle = '#292929';
@@ -104,6 +105,11 @@ module.exports = class ProfileCommand extends Command {
 function expToLevel(exp) {
 	// Convert exp to current level
 	return Math.floor(-1 * (5 - Math.sqrt(25 + 8 * exp)) / 10);
+}
+
+function expTillLevel(exp) {
+	const l = expToLevel(exp) + 1;
+	return (12.5 * (l ** 2) + 12.5 * l) - exp;
 }
 
 function expFromLevel(exp) {
