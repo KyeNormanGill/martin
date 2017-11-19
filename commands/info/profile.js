@@ -68,6 +68,7 @@ module.exports = class ProfileCommand extends Command {
 			[['Global rank', `#${rank || '-'}`], [680, 172], [680, 150]]
 		];
 		const level = expToLevel(mem.user.experience);
+		const expToNextLevel = expTillLevel(mem.user.experience);
 
 		// Draw stats.
 		for (let i = 0; i < bottomPos.length; i++) {
@@ -88,9 +89,13 @@ module.exports = class ProfileCommand extends Command {
 		ctx.fillStyle = '#ffffff';
 		ctx.fillRect(372.5, 52.5, 395, 35);
 
+		ctx.fillStyle = '#29e582';
+		const value = Math.min(Math.max(0 / 1, 0), 1);
+		ctx.fillRect(372.5, 52.5, value * 395, 35);
+
 		ctx.fillStyle = '#292929';
 		ctx.font = '28px NotoSans';
-		ctx.fillText(mem.user.experience || 0, 570, 80);
+		ctx.fillText(`${mem.user.experience || 0} / ${expToNextLevel}`, 570, 80);
 
 		await message.channel.send({ files: [{ attachment: canvas.toBuffer() }] });
 	}
@@ -99,4 +104,9 @@ module.exports = class ProfileCommand extends Command {
 function expToLevel(exp) {
 	// Convert exp to current level
 	return Math.floor(-1 * (5 - Math.sqrt(25 + 8 * exp)) / 10);
+}
+
+function expTillLevel(exp) {
+	const l = expToLevel(exp) + 1;
+	return (12.5 * (l ** 2) + 12.5 * l) - exp;
 }
