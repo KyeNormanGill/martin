@@ -30,7 +30,7 @@ client.on('commandRun', (command, message, args) => {
 		[${message.author.tag}] 
 		[${command.group}:${command.name}] 
 		[args: ${args}] 
-		[guild: ${message.guild.name}, channel: ${message.channel.name}]
+		${message.guild ? `[guild: ${message.guild.name}, channel: ${message.channel.name}]` : ''}
 	`);
 });
 

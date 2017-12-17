@@ -8,7 +8,8 @@ module.exports = class RollCommand extends Command {
 			name: 'roll',
 			description: 'Roll a dice where the sides are specified by you.',
 			aliases: ['dice'],
-			group: group
+			group: group,
+			guildOnly: true
 		});
 	}
 
