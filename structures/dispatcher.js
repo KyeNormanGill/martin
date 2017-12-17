@@ -81,6 +81,7 @@ class Dispatcher {
 			// Emit commandError event
 			message.client.emit('commandError', command, err, message);
 
+			console.error(err);
 			message.channel.send(`An error occured while trying to run **${command.name}.**\`\`\`${err.name}: ${err.message}\`\`\`Please contact: **${message.client.users.get(message.client.ownerId).tag}**`);
 		}
 	}
