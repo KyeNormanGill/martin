@@ -68,4 +68,4 @@ client.on('guildMemberAdd', mem => require('./events/guildMemberAdd.js')(mem));
 client.on('guildCreate', guild => require('./events/guildCreate.js')(guild));
 client.on('guildDelete', guild => require('./events/guildDelete.js')(guild));
 
-client.login(token);
+client.login(token).catch(console.error);
