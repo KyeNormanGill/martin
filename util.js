@@ -43,6 +43,8 @@ function updateStats(client) {
 		.set('Authorization', botspw)
 		.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
 		.end();
+
+	client.user.setPresence({ game: { name: `${client.prefix}help | ${client.guilds.size} guilds`, type: 0 } });
 }
 
 exports.allTrue = allTrue;
