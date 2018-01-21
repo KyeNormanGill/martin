@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { get } = require('snekfetch');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class DogFactCommand extends Command {
@@ -17,7 +17,7 @@ module.exports = class DogFactCommand extends Command {
 
 	async run(message) {
 		const { body } = await get('https://dog-api.kinduff.com/api/facts');
-		const embed = new RichEmbed().setTitle('Random dog fact!').setColor(colour).setDescription(body.facts[0]);
+		const embed = new MessageEmbed().setTitle('Random dog fact!').setColor(colour).setDescription(body.facts[0]);
 
 		message.channel.send({ embed });
 	}

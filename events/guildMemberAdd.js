@@ -1,7 +1,7 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
-module.exports = function handle(mem) {
-	const embed = new RichEmbed()
+module.exports = function handle(client, mem) {
+	const embed = new MessageEmbed()
 		.setColor(0x4fdd24)
 		.setAuthor(`${mem.user.tag} - ${mem.id}`, mem.user.avatarURL)
 		.setFooter('User joined')

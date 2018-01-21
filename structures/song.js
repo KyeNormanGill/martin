@@ -62,7 +62,7 @@ class Song {
 
 		const stream = ytdl(queue[0].URL, { audioonly: true });
 
-		const dispatcher = message.guild.voiceConnection.playStream(stream, { passes: 1, volume: 0.25 });
+		const dispatcher = message.guild.voiceConnection.play(stream, { passes: 1, volume: 0.25 });
 
 		stream.once('error', err => {
 			console.log(err);

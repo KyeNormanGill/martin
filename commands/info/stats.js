@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const moment = require('moment');
 require('moment-duration-format');
@@ -17,7 +17,7 @@ module.exports = class StatsCommand extends Command {
 	}
 
 	run(message) {
-		const embed = new RichEmbed();
+		const embed = new MessageEmbed();
 		embed.setColor(colour)
 			.setTitle('Stats')
 			.setThumbnail(message.client.user.avatarURL)

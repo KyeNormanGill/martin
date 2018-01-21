@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { error, findUser } = require('../../util.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class AvatarCommand extends Command {
@@ -21,7 +21,7 @@ module.exports = class AvatarCommand extends Command {
 		if (user === null) {
 			error('Please input a valid user', message);
 		} else {
-			const embed = new RichEmbed();
+			const embed = new MessageEmbed();
 			embed.setColor(colour);
 
 			if (args.length === 0) {

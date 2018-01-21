@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { error } = require('../../util.js');
 const { colour } = require('../../config.json');
 
@@ -25,7 +25,7 @@ module.exports = class QueueCommand extends Command {
 			queueTxt += `${song.requestedBy} - ${song.name} - ${song.length}\n`;
 		});
 
-		const embed = new RichEmbed()
+		const embed = new MessageEmbed()
 			.setColor(colour)
 			.setTitle(`Queue for ${message.guild.name}`)
 			.setDescription(queueTxt);

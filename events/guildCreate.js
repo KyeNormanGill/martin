@@ -1,8 +1,8 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { updateStats } = require('../util.js');
 
-module.exports = function handle(guild) {
-	const embed = new RichEmbed()
+module.exports = function handle(client, guild) {
+	const embed = new MessageEmbed()
 		.setColor(0x4fdd24)
 		.setThumbnail(guild.iconURL)
 		.setTitle(guild.name)

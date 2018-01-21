@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class HelpCommand extends Command {
@@ -31,7 +31,7 @@ module.exports = class HelpCommand extends Command {
 			const command = message.client.commands.find(cmd => cmd.name.toLowerCase().includes(args.toLowerCase()));
 			if (!command) return message.channel.send(`Could not find a command called **${args}**`);
 
-			const embed = new RichEmbed()
+			const embed = new MessageEmbed()
 				.setColor(colour)
 				.setTitle(command.name)
 				.setDescription(`**Description:** ${command.description}${command.aliases.length ? `\n\n**Aliases:** ${command.aliases.join(', ')}` : ''}`);

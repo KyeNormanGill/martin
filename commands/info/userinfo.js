@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { error, findUser } = require('../../util.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { stripIndents } = require('common-tags');
 const { colour } = require('../../config.json');
@@ -23,7 +23,7 @@ module.exports = class UserInfoCommand extends Command {
 		if (user === null) {
 			error('Please input a valid user', message);
 		} else {
-			const embed = new RichEmbed();
+			const embed = new MessageEmbed();
 			const member = message.guild.members.get(user.id);
 			const username = member.user.tag;
 			const joinedAt = moment.utc(member.joinedTimestamp).format('MMM Do YYYY');

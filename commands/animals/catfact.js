@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { get } = require('snekfetch');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class CatFactCommand extends Command {
@@ -17,7 +17,7 @@ module.exports = class CatFactCommand extends Command {
 
 	async run(message) {
 		const { body } = await get('https://catfact.ninja/fact');
-		const embed = new RichEmbed().setTitle('Random cat fact!').setColor(colour).setDescription(body.fact);
+		const embed = new MessageEmbed().setTitle('Random cat fact!').setColor(colour).setDescription(body.fact);
 
 		message.channel.send({ embed });
 	}

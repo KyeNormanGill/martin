@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class ConfigCommand extends Command {
@@ -16,7 +16,7 @@ module.exports = class ConfigCommand extends Command {
 
 	run(message) {
 		let text = `Configuration for **${message.guild.name}**\n\n`;
-		const embed = new RichEmbed().setColor(colour);
+		const embed = new MessageEmbed().setColor(colour);
 
 		const channels = message.guild.channels.filter(Gchannel => Gchannel.type === 'text').filter(t => t.topic);
 

@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
 const { error } = require('../../util.js');
 const { stripIndents } = require('common-tags');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class CurrentCommand extends Command {
@@ -22,7 +22,7 @@ module.exports = class CurrentCommand extends Command {
 		if (message.guild.voiceConnection.player.dispatcher) {
 			const info = message.client.queues.get(message.guild.id);
 
-			const embed = new RichEmbed()
+			const embed = new MessageEmbed()
 				.setColor(colour)
 				.setDescription(stripIndents`
 					**Song:** ${info[0].name}

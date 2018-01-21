@@ -2,19 +2,15 @@ const { Client, Collection } = require('discord.js');
 const { promisify } = require('util');
 const fs = require('fs');
 const path = require('path');
-const options = {
-	ownerId: '189696688657530880',
-	prefix: 'm)',
-	commandPath: path.join(__dirname, '..', 'commands')
-};
 
 class Martin extends Client {
-	constructor() {
+	constructor(options = {}) {
 		super(options);
 
 		this.ownerId = options.ownerId;
 		this.prefix = options.prefix;
 		this.commandPath = options.commandPath;
+		this.eventPath = options.eventPath;
 		this.streamedRecently = [];
 		this.commands = new Collection();
 		this.groups = new Collection();
@@ -39,8 +35,15 @@ class Martin extends Client {
 					this.groups.get(group).push(cmd);
 				}
 			}
-
 			this.emit('commandsLoaded', this.commands);
+
+			const events = await readdir(this.eventPath);
+			for (const event of events) {
+				console.log(`Loaded ${event}`);
+				this.on(event.replace('.js', ''), (...args) => require(path.join(this.eventPath, event))(this, ...args));
+			}
+
+			this.emit('eventsLoaded', events.length);
 		});
 	}
 }

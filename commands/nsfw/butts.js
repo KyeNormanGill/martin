@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
 const snekfetch = require('snekfetch');
 const { error } = require('../../util.js');
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class ButtsCommand extends Command {
@@ -19,7 +19,7 @@ module.exports = class ButtsCommand extends Command {
 	async run(message) {
 		if (message.channel.nsfw) {
 			const { body } = await snekfetch.get('http://api.obutts.ru/butts/0/1/random');
-			const embed = new RichEmbed().setColor(colour)
+			const embed = new MessageEmbed().setColor(colour)
 				.setImage(`http://media.obutts.ru/${body[0].preview}`);
 
 			message.channel.send({ embed });

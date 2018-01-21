@@ -1,8 +1,8 @@
-const { RichEmbed } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 const { updateStats } = require('../util.js');
 
-module.exports = function handle(guild) {
-	const embed = new RichEmbed()
+module.exports = function handle(client, guild) {
+	const embed = new MessageEmbed()
 		.setColor(0xf93535)
 		.setThumbnail(guild.iconURL)
 		.setDescription(`**Owner**: ${guild.owner.user.tag}\n**Region**: ${guild.region}\n**Channels**: ${guild.channels.size}`)

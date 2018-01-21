@@ -18,22 +18,18 @@ const { oneLine } = require('common-tags');
 const db = require('./database/sqlite.js');
 const Users = require('./database/models/Users.js');
 const { updateStats } = require('./util.js');
+const path = require('path');
 
 const Handler = new Dispatcher();
-const client = new Client();
-
-client.on('commandsLoaded', commands => console.log(`Loaded ${commands.size}`));
-client.on('message', message => Handler.handle(message));
-
-client.on('commandRun', (command, message, args) => {
-	console.log(oneLine`
-		[${message.author.tag}] 
-		[${command.group}:${command.name}] 
-		[args: ${args}] 
-		${message.guild ? `[guild: ${message.guild.name}, channel: ${message.channel.name}]` : ''}
-	`);
+const client = new Client({
+	ownerId: '189696688657530880',
+	prefix: 'beta.',
+	commandPath: path.join(__dirname, 'commands'),
+	eventPath: path.join(__dirname, 'events')
 });
 
+client.once('commandsLoaded', commands => console.log(`Loaded ${commands.size} commands!`));
+client.once('eventsLoaded', length => console.log(`Loaded ${length} events!`));
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}`);
 	client.user.setPresence({ game: { name: `${client.prefix}help | ${client.guilds.size} guilds`, type: 0 } });
@@ -61,10 +57,17 @@ client.once('ready', () => {
 	updateStats(client);
 });
 
-client.on('presenceUpdate', (oldMem, newMem) => require('./events/presenceUpdate.js')(oldMem, newMem));
-client.on('guildMemberRemove', mem => require('./events/guildMemberRemove.js')(mem));
-client.on('guildMemberAdd', mem => require('./events/guildMemberAdd.js')(mem));
-client.on('guildCreate', guild => require('./events/guildCreate.js')(guild));
-client.on('guildDelete', guild => require('./events/guildDelete.js')(guild));
+client.on('message', message => Handler.handle(message));
+client.on('commandRun', (command, message, args) => {
+	console.log(oneLine`
+		[${message.author.tag}] 
+		[${command.group}:${command.name}] 
+		[args: ${args}] 
+		${message.guild ? `[guild: ${message.guild.name}, channel: ${message.channel.name}]` : ''}
+	`);
+});
 
 client.login(token).catch(e => console.error(e));
+
+// process.on('unhandledRejection', console.error);
+process.on('unhandledPromiseRejection', console.error);
