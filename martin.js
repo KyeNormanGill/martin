@@ -32,7 +32,7 @@ client.once('commandsLoaded', commands => console.log(`Loaded ${commands.size} c
 client.once('eventsLoaded', length => console.log(`Loaded ${length} events!`));
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}`);
-	client.user.setPresence({ game: { name: `${client.prefix}help | ${client.guilds.size} guilds`, type: 0 } });
+	client.user.setGame(`${client.prefix}help | ${client.guilds.size} guilds`);
 
 	db.sync().then(() => {
 		Users.findAll().then(users => {
