@@ -30,20 +30,19 @@ const client = new Client({
 
 client.once('commandsLoaded', commands => console.log(`Loaded ${commands.size} commands!`));
 client.once('eventsLoaded', length => console.log(`Loaded ${length} events!`));
-client.once('ready', () => {
+client.once('ready', async() => {
 	console.log(`Logged in as ${client.user.tag}`);
 	client.user.setActivity(`${client.prefix}help | ${client.guilds.size} guilds`);
 
-	db.sync().then(() => {
-		Users.findAll().then(users => {
-			users.forEach(user => {
-				const person = client.users.get(user.UserId);
-				if (person) {
-					person.money = user.Money;
-					person.experience = user.Experience;
-				}
-			});
-		});
+	await db.sync();
+	const users = await Users.findAll();
+
+	users.forEach(user => {
+		const person = client.users.get(user.UserId);
+		if (person) {
+			person.money = user.Money;
+			person.experience = user.Experience;
+		}
 	});
 
 	setInterval(() => {
