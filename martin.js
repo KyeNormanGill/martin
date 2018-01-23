@@ -68,5 +68,5 @@ client.on('commandRun', (command, message, args) => {
 
 client.login(token).catch(e => console.error(e));
 
-// process.on('unhandledRejection', console.error);
+process.on('unhandledRejection', console.error);
 process.on('unhandledPromiseRejection', console.error);
