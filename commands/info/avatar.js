@@ -25,9 +25,9 @@ module.exports = class AvatarCommand extends Command {
 			embed.setColor(colour);
 
 			if (args.length === 0) {
-				embed.setImage(message.author.avatarURL);
+				embed.setImage(message.author.avatarURL({ size: 512 }));
 			} else {
-				embed.setImage(user.avatarURL);
+				embed.setImage(user.avatarURL({ size: 512 }));
 			}
 			message.channel.send({ embed });
 		}
