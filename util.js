@@ -44,7 +44,7 @@ function updateStats(client) {
 		.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
 		.end();
 
-	client.user.setGame(`${client.prefix}help | ${client.guilds.size} guilds`);
+	client.user.setActivity(`${client.prefix}help | ${client.guilds.size} guilds`);
 }
 
 exports.allTrue = allTrue;
