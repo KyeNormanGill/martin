@@ -25,7 +25,11 @@ const client = new Client({
 	ownerId: '189696688657530880',
 	prefix: 'm)',
 	commandPath: path.join(__dirname, 'commands'),
-	eventPath: path.join(__dirname, 'events')
+	eventPath: path.join(__dirname, 'events'),
+	messageCacheMaxSize: 20,
+	messageCacheLifetime: 60,
+	messageSweepInterval: 30,
+	disabledEvents: ['TYPING_START', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE', 'USER_NOTE_UPDATE']
 });
 
 client.once('commandsLoaded', commands => console.log(`Loaded ${commands.size} commands!`));
