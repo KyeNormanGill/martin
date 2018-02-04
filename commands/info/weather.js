@@ -28,15 +28,15 @@ module.exports = class WeatherCommand extends Command {
 		if (location.status !== 'OK') {
 			switch (location.status) {
 			case 'ZERO_RESULTS':
-				return message.channel.sendMessage('No results found');
+				return message.channel.send('No results found');
 			case 'REQUEST_DENIED':
-				return message.channel.sendMessage('Request denied');
+				return message.channel.send('Request denied');
 			case 'INVALID_REQUEST':
-				return message.channel.sendMessage('Invalid request');
+				return message.channel.send('Invalid request');
 			case 'OVER_QUERY_LIMIT':
-				return message.channel.sendMessage('Over limit');
+				return message.channel.send('Over limit');
 			case 'UNKNOWN_ERROR':
-				return message.channel.sendMessage('An unkown error has occured');
+				return message.channel.send('An unkown error has occured');
 			}
 		}
 
