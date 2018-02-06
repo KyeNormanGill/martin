@@ -28,14 +28,14 @@ module.exports = class OsuCommand extends Command {
 			.setColor(colour)
 			.setAuthor(`${body[0].username} (${body[0].user_id})`, `http://a.ppy.sh/${body[0].user_id}`)
 			.setThumbnail(`http://a.ppy.sh/${body[0].user_id}`)
-			.addField('\u200B', stripIndents`
+			.addField('Stats', stripIndents`
 				**Level:** ${parseFloat(body[0].level).toFixed(0)}
 				**Rank:** ${body[0].pp_rank}
-				**Total Score:** ${body[0].total_score}
 				**PP:** ${parseFloat(body[0].pp_raw).toFixed(0)}
 				**Accuracy:** ${parseFloat(body[0].accuracy).toFixed(2)}
+				**Total Score:** ${body[0].total_score}
 			`, true)
-			.addField('\u200B', stripIndents`
+			.addField('Medals', stripIndents`
 				**SS:** ${body[0].count_rank_ss}
 				**S:** ${body[0].count_rank_s}
 				**A:** ${body[0].count_rank_a}
