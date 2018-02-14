@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = function handle(client, mem) {
 	const embed = new MessageEmbed()
 		.setColor(0xf93535)
-		.setAuthor(`${mem.user.tag} - ${mem.id}`, mem.user.avatarURL)
+		.setAuthor(`${mem.user.tag} - ${mem.id}`, mem.user.avatarURL({ size: 512 }))
 		.setFooter('User left')
 		.setTimestamp(new Date());
 	const channel = mem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic).find(chnl => chnl.topic.includes('[leave]'));

@@ -20,7 +20,7 @@ module.exports = class StatsCommand extends Command {
 		const embed = new MessageEmbed();
 		embed.setColor(colour)
 			.setTitle('Stats')
-			.setThumbnail(message.client.user.avatarURL)
+			.setThumbnail(message.client.user.avatarURL({ size: 512 }))
 			.addField('__**Martin Stats**__', stripIndents`
 				**Uptime:** ${moment.duration(message.client.uptime).format('d[ days], h[ hours], m[ minutes, and ]s[ seconds]')}
 				**Memory usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB

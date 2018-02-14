@@ -33,7 +33,7 @@ module.exports = class ProfileCommand extends Command {
 		const ctx = canvas.getContext('2d');
 
 		// Fetch avatar from discord.
-		const { body: avatar } = await get(mem.user.displayAvatarURL);
+		const { body: avatar } = await get(mem.user.displayAvatarURL({ size: 512 }));
 		const cAvatar = new Image();
 		cAvatar.src = avatar;
 

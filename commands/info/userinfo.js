@@ -31,7 +31,7 @@ module.exports = class UserInfoCommand extends Command {
 			const presence = user.presence.game ? user.presence.game.name : 'Nothing';
 			const roles = member.roles.map(r => r.toString()).slice(1).join(' ');
 
-			embed.setThumbnail(user.avatarURL)
+			embed.setThumbnail(user.avatarURL({ size: 512 }))
 				.setColor(colour)
 				.addField('User Details', stripIndents`
 					**Username** ${username}
