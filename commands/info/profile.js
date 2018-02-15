@@ -103,10 +103,10 @@ module.exports = class ProfileCommand extends Command {
 
 function expToLevel(exp) {
 	// Convert exp to current level
-	return Math.floor(-1 * (5 - Math.sqrt(25 + 8 * exp)) / 10);
+	return Math.floor(-1 * (5 - Math.sqrt(25 + (8 * exp))) / 10);
 }
 
 function expTillLevel(exp) {
 	const l = expToLevel(exp) + 1;
-	return (12.5 * (l ** 2) + 12.5 * l) - exp;
+	return ((12.5 * (l ** 2)) + (12.5 * l)) - exp;
 }
