@@ -24,6 +24,7 @@ module.exports = class ProfileCommand extends Command {
 		if (args) {
 			mem = findMember(message, args);
 			if (!mem) return error('No user found!', message);
+			if (mem.user.bot) return error('Only users can have a profile!', message);
 		}
 
 		const people = message.client.users.filter(p => p.experience).sort((a, b) => b.experience - a.experience);
