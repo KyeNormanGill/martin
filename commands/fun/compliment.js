@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { error, findUser } = require('../../util.js');
+const { findUser } = require('../../util.js');
 const compliments = [
 	'You\'re my kind of weird.',
 	'I love you more than tea.',
