@@ -53,7 +53,7 @@ module.exports = class ComplimentCommand extends Command {
 	run(message, args) {
 		let user = findUser(message, args);
 
-		if (!user) user = message.author;
+		if (!user || user.id === message.client.id) user = message.author;
 		message.channel.send(`${user}, ${prefixs[Math.floor(Math.random() * prefixs.length)]} ${compliments[Math.floor(Math.random() * compliments.length)]}`);
 	}
 };
