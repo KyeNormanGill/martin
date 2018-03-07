@@ -32,7 +32,7 @@ module.exports = class EightBallCommand extends Command {
 		if (!args) return error('You didn\'t ask a question?', message);
 
 		return message.channel.send(stripIndents`
-			**${message.member.displayName}** asked: ${args}
+			**${message.author.username}** asked: ${args}
 			
 			**Answer**: ${responses[Math.floor(Math.random() * responses.length)]}
 		`);

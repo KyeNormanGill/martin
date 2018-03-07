@@ -13,7 +13,7 @@ module.exports = class FlipCommand extends Command {
 
 	run(message) {
 		message.channel.send(stripIndents`
-			**${message.member.displayName}** flipped a coin.
+			**${message.author.username}** flipped a coin.
 			
 			The coin landed on **${Math.random() < 0.5 ? 'Tails' : 'Heads'}**
 		`);
