@@ -5,8 +5,8 @@ const { get } = require('snekfetch');
 module.exports = class YourMumCommand extends Command {
 	constructor(group) {
 		super({
-			name: 'insult',
-			description: 'Insult a user.',
+			name: 'yourmum',
+			description: 'Get a random your mum joke.',
 			aliases: ['yamum', 'mum'],
 			group: group
 		});
