@@ -16,7 +16,7 @@ module.exports = class CatCommand extends Command {
 	}
 
 	async run(message) {
-		const { body } = await get('http://random.cat/meow');
+		const { body } = await get('aws.random.cat/meow');
 		const embed = new MessageEmbed().setColor(colour).setImage(body.file);
 
 		message.channel.send({ embed });

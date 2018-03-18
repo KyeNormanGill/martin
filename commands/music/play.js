@@ -41,6 +41,5 @@ module.exports = class PlayCommand extends Command {
 		} catch (e) {
 			return error('No songs above 1 hour', message);
 		}
-
 	}
 };
