@@ -18,7 +18,7 @@ module.exports = class AvatarCommand extends Command {
 	run(message, args) {
 		const user = findUser(message, args);
 
-		if (user === null) {
+		if (!user) {
 			error('Please input a valid user', message);
 		} else {
 			const embed = new MessageEmbed();
