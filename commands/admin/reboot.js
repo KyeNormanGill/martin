@@ -12,8 +12,7 @@ module.exports = class RebootCommand extends Command {
 	}
 
 	async run(message) {
-		await message.channel.send(':ok_hand:');
-		await message.delete();
+		await message.channel.send('Restarting... :ok_hand:');
 		process.exit();
 	}
 };

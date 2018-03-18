@@ -17,7 +17,7 @@ module.exports = class PlayCommand extends Command {
 	}
 
 	async run(message, args) {
-		if (!args) return error('Please provide a song name!', message);
+		if (!args) return error('Please provide a song name or spotify URI!', message);
 
 		const voiceChannel = message.member.voiceChannel;
 		if (!voiceChannel || voiceChannel.type !== 'voice') return error('You\'re not in a voice channel.', message);
