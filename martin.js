@@ -23,7 +23,7 @@ const path = require('path');
 const Handler = new Dispatcher();
 const client = new Client({
 	ownerId: '189696688657530880',
-	prefix: 'm.',
+	prefix: 'm)',
 	commandPath: path.join(__dirname, 'commands'),
 	eventPath: path.join(__dirname, 'events'),
 	messageCacheMaxSize: 20,
