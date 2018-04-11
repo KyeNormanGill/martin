@@ -13,11 +13,10 @@
     "common-tags": "^1.7.2",
     "discord.js": "github:discordjs/discord.js",
     "moment": "^2.20.1",
+    "moment-timezone": "0.5.14",
     "moment-duration-format": "^2.2.0",
-    "node-opus": "^0.2.7",
-    "sequelize": "^4.31.2",
     "simple-youtube-api": "^5.0.1",
-    "sqlite3": "^3.1.13",
-    "ytdl-core": "^0.19.0"
+    "fast-html-parser": "^1.0.1",
+    "lavalink": "^0.4.0"
   }
 }

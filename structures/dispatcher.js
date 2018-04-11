@@ -5,21 +5,6 @@ class Dispatcher {
 	async handle(message) {
 		if (message.author.bot) return;
 
-		if (!earnedRecently.includes(message.author.id)) {
-			const money = Math.floor((Math.random() * 4) + 1);
-
-			if (!message.author.money) message.author.money = money;
-			else message.author.money += money;
-
-			if (!message.author.experience) message.author.experience = 1;
-			else message.author.experience += 1;
-
-			earnedRecently.push(message.author.id);
-			setTimeout(() => {
-				earnedRecently.splice(earnedRecently.indexOf(message.author.id), 1);
-			}, 8000);
-		}
-
 		const prefix = message.client.prefix;
 
 		// Mention check.

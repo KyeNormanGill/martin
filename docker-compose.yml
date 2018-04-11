@@ -1,0 +1,15 @@
+version: '3'
+services: 
+  martin:
+    build: .
+    restart: always
+    tty: true
+    depends_on:
+      - lavalink
+
+  lavalink:
+    image: "yukine/lavalink:latest"
+    restart: always
+    ports:
+      - "2333"
+      - "8080"

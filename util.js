@@ -28,7 +28,7 @@ module.exports = {
 	allTrue: array => {
 		return array.every(i => i);
 	},
-	updateStats: client => {
+	updateStats: async client => {
 		post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
 			.set('Authorization', dbots)
 			.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
