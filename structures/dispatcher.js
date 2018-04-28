@@ -26,10 +26,11 @@ class Dispatcher {
 		// Command check.
 		if (!command) return;
 
-		// Send message perm check.
-		if (message.channel.type === 'text' && !message.channel.permissionsFor(message.client.user).has('SEND_MESSAGES')) {
+		// Send message perm check. CURRENTLY BROKEN ON MASTER FOR SOME REASON.
+		/*if (message.channel.type === 'text' && message.channel.permissionsFor(message.guild.me).missing('SEND_MESSAGES')) {
+			console.log(`Perm to text: ${!!message.channel.permissionsFor(message.client.user).has('SEND_MESSAGES')}`);
 			message.author.send(`I do not have permission to speak in ${message.channel.toString()}`).catch(console.log);
-		}
+		}*/
 
 		// Owner only check
 		if (command.ownerOnly && message.client.ownerId !== message.author.id) return;

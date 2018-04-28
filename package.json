@@ -17,6 +17,6 @@
     "moment-duration-format": "^2.2.0",
     "simple-youtube-api": "^5.0.1",
     "fast-html-parser": "^1.0.1",
-    "lavalink": "^0.4.0"
+    "lavalink": "^0.4.3"
   }
 }
