@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { colour, osuKey } = require('../../config.json');
+const config = require('../../config.json');
 const { error } = require('../../util.js');
 const { MessageEmbed } = require('discord.js');
 const { get } = require('snekfetch');
@@ -20,12 +20,12 @@ module.exports = class OsuCommand extends Command {
 	async run(message, args) {
 		if (!args) return error('Please specify a user to lookup!', message);
 
-		const { body } = await get(`https://osu.ppy.sh/api/get_user?k=${osuKey}&u=${args}`);
+		const { body } = await get(`https://osu.ppy.sh/api/get_user?k=${config.keys.osuKey}&u=${args}`);
 
 		if (!body.length) return error('No user found!', message);
 
 		const embed = new MessageEmbed()
-			.setColor(colour)
+			.setColor(config.colour)
 			.setAuthor(`${body[0].username} (${body[0].user_id})`, `http://a.ppy.sh/${body[0].user_id}`)
 			.setThumbnail(`http://a.ppy.sh/${body[0].user_id}`)
 			.addField('Stats', stripIndents`

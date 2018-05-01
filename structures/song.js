@@ -1,5 +1,7 @@
 const { colour } = require('../config.json');
 const { stripIndents } = require('common-tags');
+const moment = require('moment');
+require('moment-duration-format');
 
 class Song {
 	constructor(options = {}) {
@@ -12,7 +14,7 @@ class Song {
 		this.name = options.name;
 		this.track = options.track;
 		this.requestedBy = options.requestedBy;
-		this.length = options.length;
+		this.length = this._formatLength(options.length);
 		this.imageURL = options.imageURL;
 	}
 
@@ -22,7 +24,7 @@ class Song {
 			description: stripIndents`
 				**Song:** ${this.name}
 				**Length:** ${this.length}
-				**Queued by:** ${this.requestedBy}
+				**Queued by:** ${this.requestedBy.toString()}
 			`,
 			thumbnail: { url: this.imageURL }
 		};
@@ -84,6 +86,11 @@ class Song {
                 self_deaf: false
             }
 		});
+	}
+
+	_formatLength(length) {
+		if (length > 3600000) throw new Error('Length too long!');
+		return moment.duration(length).format('m[ minutes and ]s[ seconds]');
 	}
 }
 

@@ -16,19 +16,15 @@ module.exports = class AvatarCommand extends Command {
 	}
 
 	run(message, args) {
-		const user = findUser(message, args);
+		const user = findUser(message, args) || message.author;
 
 		if (!user) {
 			error('Please input a valid user', message);
 		} else {
-			const embed = new MessageEmbed();
-			embed.setColor(colour);
+			const embed = new MessageEmbed()
+				.setColor(colour)
+				.setImage(user.avatarURL({ size: 512 }));
 
-			if (args.length === 0) {
-				embed.setImage(message.author.avatarURL({ size: 512 }));
-			} else {
-				embed.setImage(user.avatarURL({ size: 512 }));
-			}
 			message.channel.send({ embed });
 		}
 	}

@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { get } = require('snekfetch');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
 const { colour } = require('../../config.json');
 
 module.exports = class CatCommand extends Command {
@@ -16,8 +16,12 @@ module.exports = class CatCommand extends Command {
 	}
 
 	async run(message) {
-		const { body } = await get('http://aws.random.cat/meow');
-		const embed = new MessageEmbed().setColor(colour).setImage(body.file);
+		const { body } = await get('http://thecatapi.com/api/images/get');
+
+		const embed = new MessageEmbed()
+			.setColor(colour)
+			.attachFiles([new MessageAttachment(body, 'file.png')])
+			.setImage('attachment://file.png');;
 
 		message.channel.send({ embed });
 	}

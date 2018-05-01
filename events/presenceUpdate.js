@@ -2,6 +2,7 @@ const snekfetch = require('snekfetch');
 const { twitch: twitchKey } = require('../config.json').keys;
 const { createCanvas, Image } = require('canvas');
 
+// Needs to be remade because idk how events work.
 module.exports = async function handle(client, oldMem, newMem) {
 	if (oldMem.user.bot) return;
 	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)

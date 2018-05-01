@@ -17,14 +17,12 @@ module.exports = class ButtsCommand extends Command {
 	}
 
 	async run(message) {
-		if (message.channel.nsfw) {
-			const { body } = await snekfetch.get('http://api.obutts.ru/butts/0/1/random');
-			const embed = new MessageEmbed().setColor(colour)
-				.setImage(`http://media.obutts.ru/${body[0].preview}`);
+		if (!message.channel.nsfw) return error('You can only use these commands in NSFW channels.', message);
 
-			message.channel.send({ embed });
-		} else {
-			error('You can only use these commands in NSFW channels.', message);
-		}
+		const { body } = await snekfetch.get('http://api.obutts.ru/butts/0/1/random');
+		const embed = new MessageEmbed().setColor(colour)
+			.setImage(`http://media.obutts.ru/${body[0].preview}`);
+
+		message.channel.send({ embed });
 	}
 };

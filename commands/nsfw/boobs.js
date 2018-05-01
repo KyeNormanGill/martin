@@ -17,14 +17,12 @@ module.exports = class BoobsCommand extends Command {
 	}
 
 	async run(message) {
-		if (message.channel.nsfw) {
-			const { body } = await snekfetch.get('http://api.oboobs.ru/boobs/0/1/random')
-			const embed = new MessageEmbed().setColor(colour)
-				.setImage(`http://media.oboobs.ru/${body[0].preview}`);
+		if (!message.channel.nsfw) return error('You can only use these commands in NSFW channels.', message);
+		
+		const { body } = await snekfetch.get('http://api.oboobs.ru/boobs/0/1/random')
+		const embed = new MessageEmbed().setColor(colour)
+			.setImage(`http://media.oboobs.ru/${body[0].preview}`);
 
-			message.channel.send({ embed });
-		} else {
-			error('You can only use these commands in NSFW channels.', message);
-		}
+		message.channel.send({ embed });
 	}
 };
