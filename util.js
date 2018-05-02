@@ -45,13 +45,14 @@ module.exports = {
 		client.user.setActivity(`${client.prefix}help | ${client.guilds.size} guilds`);
 	},
 	init: async client => {
-		setTimeout(() => {
-			client.lavalink.connect('ws://lavalink:8080');
-			console.log('Lavalink connected!');
-		}, 5000);
+		const events = await readdir(client.eventPath);
+		for (const event of events) {
+			console.log(event.replace('.js', ''));
+			client.on(event.replace('.js', ''), (...args) => require(path.join(client.eventPath, event))(client, ...args));
+		}
+		console.log(`Loaded ${events.length} events!`);
 
 		const groups = await readdir(client.commandPath);
-
 		for (const group of groups) {
 			const commands = await readdir(path.join(client.commandPath, group)); // eslint-disable-line
 			client.groups.set(group, []);
@@ -63,13 +64,11 @@ module.exports = {
 				client.groups.get(group).push(cmd);
 			}
 		}
-		console.log(`Loaded ${client.commands.size} commands!`)
+		console.log(`Loaded ${client.commands.size} commands!`);
 
-		const events = await readdir(client.eventPath);
-		for (const event of events) {
-			console.log(`Loaded ${event}`);
-			client.on(event.replace('.js', ''), (...args) => require(path.join(client.eventPath, event))(client, ...args));
-		}
-		console.log(`Loaded ${events.size} commands!`);
+		setTimeout(() => {
+			client.lavalink.connect('ws://lavalink:8080');
+			console.log('Lavalink connected!');
+		}, 5000);
 	}
 };
