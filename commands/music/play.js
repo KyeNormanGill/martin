@@ -20,7 +20,7 @@ module.exports = class PlayCommand extends Command {
 		if (!voiceChannel || voiceChannel.type !== 'voice') return error('You\'re not in a voice channel.', message);
 
 		const songs = await message.client.songParser.load(`ytsearch:${args}`);
-		const currentSong = song[0];
+		const currentSong = songs[0];
 		if (currentSong.info.isStream) return error('Sorry! I can\'t play streams', message);
 
 		try {
@@ -28,7 +28,7 @@ module.exports = class PlayCommand extends Command {
 				name: currentSong.info.title,
 				track: currentSong.track,
 				requestedBy: message.member,
-				length: soncurrentSongg.info.length,
+				length: currentSong.info.length,
 				imageURL: `https://img.youtube.com/vi/${currentSong.info.identifier}/mqdefault.jpg`
 			});
 
