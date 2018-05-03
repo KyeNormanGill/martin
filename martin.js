@@ -19,7 +19,9 @@ const client = new Client({
 	disabledEvents: ['TYPING_START', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE', 'USER_NOTE_UPDATE']
 });
 
-client.login(token).then(() => init(client)).catch(e => console.error(e));
+init(client);
+
+client.login(token).catch(e => console.error(e));
 
 process.on('unhandledRejection', console.error);
 process.on('unhandledPromiseRejection', console.error);
