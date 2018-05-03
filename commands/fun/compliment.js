@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { findUser } = require('../../util.js');
+const { find } = require('../../util.js');
 const compliments = [
 	'You\'re my kind of weird.',
 	'I love you more than tea.',
@@ -46,12 +46,12 @@ module.exports = class ComplimentCommand extends Command {
 		super({
 			name: 'compliment',
 			description: 'Compliment a user.',
-			group: group
+			group
 		});
 	}
 
 	run(message, args) {
-		let user = findUser(message, args);
+		let user = find.User(message, args);
 
 		if (!user || user.id === message.client.id) user = message.author;
 		message.channel.send(`${user}, ${prefixs[Math.floor(Math.random() * prefixs.length)]} ${compliments[Math.floor(Math.random() * compliments.length)]}`);

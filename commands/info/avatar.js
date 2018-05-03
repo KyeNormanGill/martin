@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
-const { error, findUser } = require('../../util.js');
+const { error, find } = require('../../util.js');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class AvatarCommand extends Command {
 	constructor(group) {
@@ -11,18 +11,18 @@ module.exports = class AvatarCommand extends Command {
 			guildOnly: true,
 			aliases: ['image', 'dp'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	run(message, args) {
-		const user = findUser(message, args) || message.author;
+		const user = find.User(message, args) || message.author;
 
 		if (!user) {
-			error('Please input a valid user', message);
+			return error('Please input a valid user', message);
 		} else {
 			const embed = new MessageEmbed()
-				.setColor(colour)
+				.setColor(embedColour)
 				.setImage(user.avatarURL({ size: 512 }));
 
 			message.channel.send({ embed });

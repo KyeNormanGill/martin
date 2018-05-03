@@ -1,4 +1,4 @@
-class Command {
+module.exports = class Command {
 	constructor(options = {}) {
 		if (!options.description) throw Error('No description detected in command.');
 		if (!options.name) throw Error('No name property detected in command.');
@@ -17,5 +17,3 @@ class Command {
 		this.group = options.group;
 	}
 }
-
-module.exports = Command;

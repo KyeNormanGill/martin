@@ -1,9 +1,9 @@
-const { colour } = require('../config.json');
+const { embedColour } = require('../config.json');
 const { stripIndents } = require('common-tags');
 const moment = require('moment');
 require('moment-duration-format');
 
-class Song {
+module.exports = class Song {
 	constructor(options = {}) {
 		if (options.name === undefined) throw Error('Song name not provided!');
 		if (options.track === undefined) throw Error('Song URL not provided!');
@@ -20,7 +20,7 @@ class Song {
 
 	getEmbedObject() {
 		return {
-			color: parseInt(colour, 16),
+			color: parseInt(embedColour, 16),
 			description: stripIndents`
 				**Song:** ${this.name}
 				**Length:** ${this.length}
@@ -78,13 +78,13 @@ class Song {
 
 	_leave(guild) {
 		guild.client.ws.send({
-            op: 4,
-            d: {
-                guild_id: guild.id,
-                channel_id: null,
-                self_mute: false,
-                self_deaf: false
-            }
+			op: 4,
+			d: {
+				guild_id: guild.id,
+				channel_id: null,
+				self_mute: false,
+				self_deaf: false
+			}
 		});
 	}
 
@@ -93,5 +93,3 @@ class Song {
 		return moment.duration(length).format('m[ minutes and ]s[ seconds]');
 	}
 }
-
-module.exports = Song;

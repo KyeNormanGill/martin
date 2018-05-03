@@ -7,7 +7,7 @@ module.exports = class EvalCommand extends Command {
 			description: 'Evaluates code.',
 			ownerOnly: true,
 			aliases: ['evaluate', 'run'],
-			group: group
+			group
 		});
 	}
 

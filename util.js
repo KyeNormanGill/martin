@@ -6,30 +6,26 @@ const config = require('./config.json');
 const readdir = promisify(fs.readdir);
 
 module.exports = {
-	findUser: (message, args) => {
-		return message.client.users.get(args)
-			|| message.client.users.find(userino => userino.username.toLowerCase().includes(args.toLowerCase()))
-			|| message.mentions.users.first();
-	},
-	findMember: (message, args) => {
-		return message.guild.members.get(args)
-			|| message.guild.members.find(userino => userino.user.username.toLowerCase().includes(args.toLowerCase()))
-			|| message.mentions.members.first();
-	},
-	findChannel: (message, args) => {
-		return message.mentions.channels.first()
-			|| message.guild.channels.get(args)
-			|| message.guild.channels.find(channel => channel.name.toLowerCase().includes(args.toLowerCase()));
-	},
-	stripPath: (pathName, extension) => {
-		return path.basename(pathName, `.${extension}`);
+	find: {
+		User(message, args) {
+			return  message.mentions.users.first()
+				|| message.client.users.get(args)
+				|| message.client.users.find(userino => userino.username.toLowerCase().includes(args.toLowerCase()));
+		},
+		Member(message, args) {
+			return message.mentions.members.first()
+				|| message.guild.members.get(args)
+				|| message.guild.members.find(userino => userino.user.username.toLowerCase().includes(args.toLowerCase()));
+		},
+		Channel(message, args) {
+			return message.mentions.channels.first()
+				|| message.guild.channels.get(args)
+				|| message.guild.channels.find(channel => channel.name.toLowerCase().includes(args.toLowerCase()));
+		}
 	},
 	error: (errorText, message) => {
 		if (message === undefined) throw Error('Message undefined in error call.');
 		message.channel.send(`<:error:353927476885585930> | ${errorText}`);
-	},
-	allTrue: array => {
-		return array.every(i => i);
 	},
 	updateStats: async client => {
 		post(`https://discordbots.org/api/bots/${client.user.id}/stats`)

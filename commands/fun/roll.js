@@ -8,12 +8,12 @@ module.exports = class RollCommand extends Command {
 			name: 'roll',
 			description: 'Roll a dice where the sides are specified by you.',
 			aliases: ['dice'],
-			group: group
+			group
 		});
 	}
 
 	run(message, args) {
-		if (!args) return error('You didn\'t specify how many sides on the die?', message);
+		if (!args) return error('You didn\'t specify how many sides on the die!', message);
 		message.channel.send(stripIndents`
 			**${message.author.username}** rolled a die.
 			

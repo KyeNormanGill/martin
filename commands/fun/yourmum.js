@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
-const { findUser } = require('../../util.js');
-const { get } = require('snekfetch');
+const { find } = require('../../util.js');
+const snekfetch = require('snekfetch');
 
 module.exports = class YourMumCommand extends Command {
 	constructor(group) {
@@ -8,15 +8,15 @@ module.exports = class YourMumCommand extends Command {
 			name: 'yourmum',
 			description: 'Get a random your mum joke.',
 			aliases: ['yamum', 'mum'],
-			group: group
+			group
 		});
 	}
 
 	async run(message, args) {
-		let user = findUser(message, args);
+		let user = find.User(message, args);
 
 		if (!user || user.id === message.client.id) user = message.author;
-		const { text } = await get('http://api.yomomma.info/');
+		const { text } = await snekfetch.get('http://api.yomomma.info/');
 
 		message.channel.send(`${user}, ${JSON.parse(text).joke}`);
 	}

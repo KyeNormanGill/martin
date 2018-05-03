@@ -8,7 +8,7 @@ module.exports = class ExecCommand extends Command {
 			description: 'This evaluates commands in cli.',
 			ownerOnly: true,
 			aliases: ['cli'],
-			group: group
+			group
 		});
 	}
 

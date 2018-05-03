@@ -7,7 +7,7 @@ module.exports = class FlipCommand extends Command {
 			name: 'flip',
 			description: 'Flips a coin.',
 			aliases: ['coinflip', 'flipcoin', 'headsortails'],
-			group: group
+			group
 		});
 	}
 

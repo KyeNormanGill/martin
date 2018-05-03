@@ -2,7 +2,7 @@ const Command = require('../../structures/command.js');
 const snekfetch = require('snekfetch');
 const { error } = require('../../util.js');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class ButtsCommand extends Command {
 	constructor(group) {
@@ -12,7 +12,7 @@ module.exports = class ButtsCommand extends Command {
 			guildOnly: false,
 			aliases: ['ass'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
@@ -20,7 +20,8 @@ module.exports = class ButtsCommand extends Command {
 		if (!message.channel.nsfw) return error('You can only use these commands in NSFW channels.', message);
 
 		const { body } = await snekfetch.get('http://api.obutts.ru/butts/0/1/random');
-		const embed = new MessageEmbed().setColor(colour)
+		const embed = new MessageEmbed()
+			.setColor(embedColour)
 			.setImage(`http://media.obutts.ru/${body[0].preview}`);
 
 		message.channel.send({ embed });

@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 const { stripIndents } = require('common-tags');
 const moment = require('moment');
 require('moment-duration-format');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class StatsCommand extends Command {
 	constructor(group) {
@@ -12,13 +12,13 @@ module.exports = class StatsCommand extends Command {
 			description: 'Shows stats about the bot.',
 			aliases: ['statistics', 'info'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	run(message) {
 		const embed = new MessageEmbed();
-		embed.setColor(colour)
+		embed.setColor(embedColour)
 			.setTitle('Stats')
 			.setThumbnail(message.client.user.avatarURL({ size: 512 }))
 			.addField('__**Martin Stats**__', stripIndents`
