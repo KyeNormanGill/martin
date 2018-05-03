@@ -20,16 +20,16 @@ module.exports = class PlayCommand extends Command {
 		if (!voiceChannel || voiceChannel.type !== 'voice') return error('You\'re not in a voice channel.', message);
 
 		const songs = await message.client.songParser.load(`ytsearch:${args}`);
-		const song = song[0];
-		if (song.info.isStream) return error('Sorry! I can\'t play streams', message);
+		const currentSong = song[0];
+		if (currentSong.info.isStream) return error('Sorry! I can\'t play streams', message);
 
 		try {
 			const song = new Song({
-				name: song.info.title,
-				track: song.track,
+				name: currentSong.info.title,
+				track: currentSong.track,
 				requestedBy: message.member,
-				length: song.info.length,
-				imageURL: `https://img.youtube.com/vi/${song.info.identifier}/mqdefault.jpg`
+				length: soncurrentSongg.info.length,
+				imageURL: `https://img.youtube.com/vi/${currentSong.info.identifier}/mqdefault.jpg`
 			});
 
 			song.play(message);
