@@ -20,6 +20,9 @@ module.exports = class PlayCommand extends Command {
 		if (!voiceChannel || voiceChannel.type !== 'voice') return error('You\'re not in a voice channel.', message);
 
 		const songs = await message.client.songParser.load(`ytsearch:${args}`);
+
+		if (!songs) return error(`No songs found with name: **${args}**`, message);
+
 		const currentSong = songs[0];
 		if (currentSong.info.isStream) return error('Sorry! I can\'t play streams', message);
 
