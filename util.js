@@ -64,6 +64,6 @@ module.exports = {
 		setTimeout(() => {
 			client.lavalink.connect('ws://lavalink:8080');
 			console.log('Lavalink connected!');
-		}, 5000);
+		}, 10000);
 	}
 };

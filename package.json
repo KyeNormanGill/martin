@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "canvas": "^2.0.0-alpha.9",
+    "canvas": "2.0.0-alpha.9",
     "common-tags": "^1.7.2",
     "discord.js": "github:discordjs/discord.js",
     "moment": "^2.20.1",

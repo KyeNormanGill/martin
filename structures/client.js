@@ -16,7 +16,7 @@ module.exports = class Martin extends Client {
 		this.groups = new Collection();
 		this.queues = new Collection();
 		lavalink.discordjs(this, {
-			userID: '421022757573230595',
+			userID: '349952389589237762',
 			password: this.config.lavalink
 		});
 		this.songParser = new lavalink.Http(this.lavalink, 'http://lavalink:2333');

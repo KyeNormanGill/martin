@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 module.exports = (client, mem) => {
-	const channel = mem.guild.channels.find(c => c.type === 'text' && c.topic.includes('[leave]'));
+	const channel = mem.guild.channels.find(c => c.type === 'text' && c.topic && c.topic.includes('[leave]'));
 	if (!channel) return;
 
 	const embed = new MessageEmbed()

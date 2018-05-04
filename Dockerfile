@@ -12,7 +12,7 @@ RUN apk add --update \
 && apk add --no-cache --virtual .build-deps git curl pixman-dev cairo-dev pangomm-dev libjpeg-turbo-dev giflib-dev python g++ make \
 # Install node.js dependencies
 \
-&& yarn install \
+&& yarn install --build-from-source \
 # Clean up build dependencies
 && apk del .build-deps
 # Add project source
