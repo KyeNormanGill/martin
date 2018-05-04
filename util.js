@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const { promisify } = require('util');
 const { post } = require('snekfetch');
-const config = require('./config.json');
 const readdir = promisify(fs.readdir);
 
 module.exports = {
@@ -29,12 +28,12 @@ module.exports = {
 	},
 	updateStats: async client => {
 		post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-			.set('Authorization', config.keys.dbots)
+			.set('Authorization', client.config.dbots)
 			.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
 			.end();
 
 		post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-			.set('Authorization', config.keys.botspw)
+			.set('Authorization', client.config.botspw)
 			.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
 			.end();
 

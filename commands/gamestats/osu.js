@@ -20,7 +20,7 @@ module.exports = class OsuCommand extends Command {
 	async run(message, args) {
 		if (!args) return error('Please specify a user to lookup!', message);
 
-		const { body } = await snekfetch.get(`https://osu.ppy.sh/api/get_user?k=${config.keys.osuKey}&u=${args}`);
+		const { body } = await snekfetch.get(`https://osu.ppy.sh/api/get_user?k=${message.client.config.osuKey}&u=${args}`);
 
 		if (!body.length) return error('No user found!', message);
 

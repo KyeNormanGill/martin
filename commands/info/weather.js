@@ -45,7 +45,7 @@ module.exports = class WeatherCommand extends Command {
 	async run(message, args) {
 		if (!args) return error('Please specify a place to look for weather', message);
 
-		const { body: location } = await snekfetch.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${args}&key=${keys.google}`);
+		const { body: location } = await snekfetch.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${args}&key=${message.client.config.google}`);
 
 		if (location.status !== 'OK') {
 			switch (location.status) {
@@ -74,7 +74,7 @@ module.exports = class WeatherCommand extends Command {
 
 		const city = locality || governing || country || continent || {};
 
-		const { body: weather } = await snekfetch.get(`https://api.darksky.net/forecast/${keys.darksky}/${latitude},${longitude}`);
+		const { body: weather } = await snekfetch.get(`https://api.darksky.net/forecast/${message.client.config.darksky}/${latitude},${longitude}`);
 
 		const canvas = createCanvas(800, 250);
 		const ctx = canvas.getContext('2d');

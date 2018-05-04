@@ -2,6 +2,8 @@ version: '3'
 services: 
   martin:
     build: .
+    env_file:
+     - ./.env
     restart: always
     tty: true
     depends_on:

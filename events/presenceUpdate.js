@@ -1,5 +1,4 @@
 const snekfetch = require('snekfetch');
-const { twitch: twitchKey } = require('../config.json').keys;
 const { createCanvas, Image } = require('canvas');
 
 // Needs to be remade because idk how events work.
@@ -11,7 +10,7 @@ module.exports = async (client, oldMem, newMem) => {
 
 	if (newMem.user.presence.game && newMem.user.presence.game.streaming && !newMem.client.streamedRecently.includes(newMem.id)) {
 		const streamID = newMem.user.presence.game.url.split('/').slice(3).join();
-		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${twitchKey}`;
+		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${message.client.config.twitch}`;
 
 		const { body: twitch } = await snekfetch.get(url);
 		const { body: background } = await snekfetch.get(twitch.stream.preview.large);

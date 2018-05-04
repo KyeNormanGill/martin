@@ -17,5 +17,14 @@ RUN apk add --update \
 && apk del .build-deps
 # Add project source
 COPY . .
+ENV token=\
+    google=\
+    cx=\
+    darksky=\
+    twitch=\
+    lavalink=\
+    osuKey=\
+    botspw=\
+    dbots=
 # Run command
 CMD ["node", "."]

@@ -6,6 +6,7 @@ module.exports = class Martin extends Client {
 	constructor(options = {}) {
 		super(options);
 
+		this.config = process.env;
 		this.ownerId = options.ownerId;
 		this.prefix = options.prefix;
 		this.commandPath = options.commandPath;
@@ -16,7 +17,7 @@ module.exports = class Martin extends Client {
 		this.queues = new Collection();
 		lavalink.discordjs(this, {
 			userID: '421022757573230595',
-			password: config.keys.lavalink
+			password: this.config.lavalink
 		});
 		this.songParser = new lavalink.Http(this.lavalink, 'http://lavalink:2333');
 	}
