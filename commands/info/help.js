@@ -1,6 +1,6 @@
 const Command = require('../../structures/command.js');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class HelpCommand extends Command {
 	constructor(group) {
@@ -9,7 +9,7 @@ module.exports = class HelpCommand extends Command {
 			description: 'Displays the commands.',
 			guildOnly: true,
 			aliases: ['helpme', '?'],
-			group: group
+			group
 		});
 	}
 
@@ -32,7 +32,7 @@ module.exports = class HelpCommand extends Command {
 			if (!command) return message.channel.send(`Could not find a command called **${args}**`);
 
 			const embed = new MessageEmbed()
-				.setColor(colour)
+				.setColor(embedColour)
 				.setTitle(command.name)
 				.setDescription(`**Description:** ${command.description}${command.aliases.length ? `\n\n**Aliases:** ${command.aliases.join(', ')}` : ''}`);
 

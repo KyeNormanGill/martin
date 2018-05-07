@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
-const { get } = require('snekfetch');
+const snekfetch = require('snekfetch');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class DogFactCommand extends Command {
 	constructor(group) {
@@ -11,13 +11,13 @@ module.exports = class DogFactCommand extends Command {
 			guildOnly: true,
 			aliases: ['randomdogfact'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	async run(message) {
-		const { body } = await get('https://dog-api.kinduff.com/api/facts');
-		const embed = new MessageEmbed().setTitle('Random dog fact!').setColor(colour).setDescription(body.facts[0]);
+		const { body } = await snekfetch.get('https://dog-api.kinduff.com/api/facts');
+		const embed = new MessageEmbed().setTitle('Random dog fact!').setColor(embedColour).setDescription(body.facts[0]);
 
 		message.channel.send({ embed });
 	}

@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { findUser } = require('../../util.js');
+const { find } = require('../../util.js');
 const insults = [
 	'You have a room temperature IQ - if the room is in Antarctica.',
 	'You have two parts of brain, \'left\' and \'right\'. In the left side, there\'s nothing right. In the right side, there\'s nothing left.',
@@ -40,12 +40,12 @@ module.exports = class InsultCommand extends Command {
 		super({
 			name: 'insult',
 			description: 'Insult a user.',
-			group: group
+			group
 		});
 	}
 
 	run(message, args) {
-		let user = findUser(message, args);
+		let user = find.User(message, args);
 
 		if (!user || user.id === message.client.id) user = message.author;
 		message.channel.send(`${user}, ${prefixs[Math.floor(Math.random() * prefixs.length)]} ${insults[Math.floor(Math.random() * insults.length)]}`);

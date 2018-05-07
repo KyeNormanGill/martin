@@ -9,7 +9,7 @@ module.exports = class ServerInfoCommand extends Command {
 			ownerOnly: true,
 			aliases: ['si'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 

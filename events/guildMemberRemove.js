@@ -1,11 +1,14 @@
 const { MessageEmbed } = require('discord.js');
 
-module.exports = function handle(client, mem) {
+module.exports = (client, mem) => {
+	const channel = mem.guild.channels.find(c => c.type === 'text' && c.topic && c.topic.includes('[leave]'));
+	if (!channel) return;
+
 	const embed = new MessageEmbed()
 		.setColor(0xf93535)
 		.setAuthor(`${mem.user.tag} - ${mem.id}`, mem.user.avatarURL({ size: 512 }))
 		.setFooter('User left')
 		.setTimestamp(new Date());
-	const channel = mem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic).find(chnl => chnl.topic.includes('[leave]'));
-	if (channel) channel.send({ embed });
+	
+	channel.send({ embed });
 };

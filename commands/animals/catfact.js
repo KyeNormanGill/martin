@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
-const { get } = require('snekfetch');
+const snekfetch = require('snekfetch');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class CatFactCommand extends Command {
 	constructor(group) {
@@ -11,13 +11,17 @@ module.exports = class CatFactCommand extends Command {
 			guildOnly: true,
 			aliases: ['randomcatfact'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	async run(message) {
-		const { body } = await get('https://catfact.ninja/fact');
-		const embed = new MessageEmbed().setTitle('Random cat fact!').setColor(colour).setDescription(body.fact);
+		const { body } = await snekfetch.get('https://catfact.ninja/fact');
+
+		const embed = new MessageEmbed()
+			.setTitle('Random cat fact!')
+			.setColor(embedColour)
+			.setDescription(body.fact);
 
 		message.channel.send({ embed });
 	}

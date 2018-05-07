@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
-const { get } = require('snekfetch');
+const snekfetch  = require('snekfetch');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class DogCommand extends Command {
 	constructor(group) {
@@ -11,13 +11,15 @@ module.exports = class DogCommand extends Command {
 			guildOnly: true,
 			aliases: ['puppy', 'pup'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	async run(message) {
-		const { body } = await get('https://random.dog/woof');
-		const embed = new MessageEmbed().setColor(colour).setImage(`https://random.dog/${body}`);
+		const { body } = await snekfetch.get('https://random.dog/woof');
+		const embed = new MessageEmbed()
+			.setColor(embedColour)
+			.setImage(`https://random.dog/${body}`);
 
 		message.channel.send({ embed });
 	}

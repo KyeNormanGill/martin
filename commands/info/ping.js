@@ -5,7 +5,7 @@ module.exports = class PingCommand extends Command {
 		super({
 			name: 'ping',
 			description: 'Show the bots ping to discord with a relay message.',
-			group: group
+			group
 		});
 	}
 

@@ -1,17 +1,18 @@
-const { colour } = require('../config.json');
+const { embedColour } = require('../config.json');
 const { stripIndents } = require('common-tags');
-const ytdl = require('ytdl-core');
+const moment = require('moment');
+require('moment-duration-format');
 
-class Song {
+module.exports = class Song {
 	constructor(options = {}) {
 		if (options.name === undefined) throw Error('Song name not provided!');
-		if (options.URL === undefined) throw Error('Song URL not provided!');
+		if (options.track === undefined) throw Error('Song URL not provided!');
 		if (options.requestedBy === undefined) throw Error('Requested ID not provided!');
 		if (options.length === undefined) throw Error('Song length not provided!');
 		if (options.imageURL === undefined) throw Error('Song image not provided!');
 
 		this.name = options.name;
-		this.URL = options.URL;
+		this.track = options.track;
 		this.requestedBy = options.requestedBy;
 		this.length = this._formatLength(options.length);
 		this.imageURL = options.imageURL;
@@ -19,11 +20,11 @@ class Song {
 
 	getEmbedObject() {
 		return {
-			color: parseInt(colour, 16),
+			color: parseInt(embedColour, 16),
 			description: stripIndents`
 				**Song:** ${this.name}
 				**Length:** ${this.length}
-				**Queued by:** ${this.requestedBy}
+				**Queued by:** ${this.requestedBy.toString()}
 			`,
 			thumbnail: { url: this.imageURL }
 		};
@@ -32,7 +33,7 @@ class Song {
 	getSongObject() {
 		return {
 			name: this.name,
-			URL: this.URL,
+			track: this.track,
 			requestedBy: this.requestedBy,
 			length: this.length,
 			imageURL: this.imageURL
@@ -56,39 +57,39 @@ class Song {
 	}
 
 	async _playSong(message) {
-		if (!message.guild.voiceConnection) await message.member.voiceChannel.join();
-
 		const queue = message.client.queues.get(message.guild.id);
 
-		const stream = ytdl(queue[0].URL, { audioonly: true });
-
-		const dispatcher = message.guild.voiceConnection.play(stream, { passes: 1, volume: 0.25 });
-
-		stream.once('error', err => {
-			console.log(err);
-		});
-
-		dispatcher.once('end', async reason => {
-			if (reason === 'end') {
-				message.guild.me.voiceChannel.leave();
-				message.client.queues.delete(message.guild.id);
-			} else {
+		const player = message.guild.player;
+		await player.join(message.member.voiceChannelID, { deaf: false, mute: false });
+		await player.play(queue[0].track);
+		player.once('event', async e => {
+			console.log(e);
+			if (e.reason === 'STOPPED' || e.reason === 'FINISHED') {
 				queue.shift();
 				if (queue.length !== 0) {
 					setTimeout(() => this._playSong(message), 1000);
 				} else {
 					await message.channel.send('No more songs left in the queue! Leaving...');
-					message.guild.me.voiceChannel.leave();
+					this._leave(message.guild);
 				}
 			}
 		});
 	}
 
-	_formatLength(obj) {
-		if (obj.years || obj.months || obj.weeks || obj.days || obj.hours) throw new Error('No songs above 1 hour');
+	_leave(guild) {
+		guild.client.ws.send({
+			op: 4,
+			d: {
+				guild_id: guild.id,
+				channel_id: null,
+				self_mute: false,
+				self_deaf: false
+			}
+		});
+	}
 
-		return `${obj.minutes}m ${obj.seconds < 10 ? `0${obj.seconds}` : obj.seconds}s`;
+	_formatLength(length) {
+		if (length > 3600000) throw new Error('Length too long!');
+		return moment.duration(length).format('m[ minutes and ]s[ seconds]');
 	}
 }
-
-module.exports = Song;

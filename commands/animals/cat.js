@@ -1,7 +1,7 @@
 const Command = require('../../structures/command.js');
-const { get } = require('snekfetch');
-const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const snekfetch = require('snekfetch');
+const { MessageEmbed, MessageAttachment } = require('discord.js');
+const { embedColour } = require('../../config.json');
 
 module.exports = class CatCommand extends Command {
 	constructor(group) {
@@ -11,13 +11,17 @@ module.exports = class CatCommand extends Command {
 			guildOnly: true,
 			aliases: ['kitty', 'kitten'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	async run(message) {
-		const { body } = await get('http://aws.random.cat/meow');
-		const embed = new MessageEmbed().setColor(colour).setImage(body.file);
+		const { body } = await snekfetch.get('http://thecatapi.com/api/images/get');
+
+		const embed = new MessageEmbed()
+			.setColor(embedColour)
+			.attachFiles([new MessageAttachment(body, 'file.png')])
+			.setImage('attachment://file.png');;
 
 		message.channel.send({ embed });
 	}

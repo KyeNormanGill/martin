@@ -2,7 +2,7 @@ const Command = require('../../structures/command.js');
 const { error } = require('../../util.js');
 const { stripIndents } = require('common-tags');
 const { MessageEmbed } = require('discord.js');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class CurrentCommand extends Command {
 	constructor(group) {
@@ -11,29 +11,28 @@ module.exports = class CurrentCommand extends Command {
 			description: 'Displays the current song playing.',
 			guildOnly: true,
 			aliases: ['np', 'nowplaying'],
-			group: group
+			group
 		});
 	}
 
 	run(message) {
-		const voiceChannel = message.guild.me.voiceChannel;
+		const { voiceChannel } = message.guild.me;
 		if (!voiceChannel) return error('I can\'t tell you the songs if i\'m not in a voice channel playing them.', message);
 
-		if (message.guild.voiceConnection.player.dispatcher) {
-			const info = message.client.queues.get(message.guild.id);
+		const info = message.client.queues.get(message.guild.id);
+		if (!info) return error('No songs are playing!', message);
 
-			const embed = new MessageEmbed()
-				.setColor(colour)
-				.setDescription(stripIndents`
-					**Song:** ${info[0].name}
-					**Length:** ${info[0].length}
-					**Queued by:** ${info[0].requestedBy.toString()}
-				`)
-				.setImage(info[0].imageURL);
+		const song = info[0];
 
-			message.channel.send({ embed });
-		} else {
-			error('I\'m not playing anything!', message);
-		}
+		const embed = new MessageEmbed()
+			.setColor(embedColour)
+			.setDescription(stripIndents`
+				**Song:** ${song.name}
+				**Length:** ${song.length}
+				**Queued by:** ${song.requestedBy.toString()}
+			`)
+			.setImage(song.imageURL);
+
+		message.channel.send({ embed });
 	}
 };

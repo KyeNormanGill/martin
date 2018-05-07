@@ -1,5 +1,5 @@
 const Command = require('../../structures/command.js');
-const { get } = require('snekfetch');
+const snekfetch = require('snekfetch');
 
 module.exports = class DadjokeCommand extends Command {
 	constructor(group) {
@@ -7,12 +7,12 @@ module.exports = class DadjokeCommand extends Command {
 			name: 'dadjoke',
 			description: 'Get a random dad joke.',
 			aliases: ['dad'],
-			group: group
+			group
 		});
 	}
 
 	async run(message) {
-		const { text } = await get('https://icanhazdadjoke.com/').set('Accept', 'text/plain');
+		const { text } = await snekfetch.get('https://icanhazdadjoke.com/').set('Accept', 'text/plain');
 		return message.channel.send(text);
 	}
 };

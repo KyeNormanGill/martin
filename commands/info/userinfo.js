@@ -1,9 +1,9 @@
 const Command = require('../../structures/command.js');
-const { error, findUser } = require('../../util.js');
+const { error, find } = require('../../util.js');
 const { MessageEmbed } = require('discord.js');
 const moment = require('moment');
 const { stripIndents } = require('common-tags');
-const { colour } = require('../../config.json');
+const { embedColour } = require('../../config.json');
 
 module.exports = class UserInfoCommand extends Command {
 	constructor(group) {
@@ -13,12 +13,12 @@ module.exports = class UserInfoCommand extends Command {
 			guildOnly: true,
 			aliases: ['ui', 'spy'],
 			perms: ['EMBED_LINKS'],
-			group: group
+			group
 		});
 	}
 
 	run(message, args) {
-		const user = findUser(message, args);
+		const user = find.User(message, args);
 
 		if (user === null) {
 			error('Please input a valid user', message);
@@ -32,7 +32,7 @@ module.exports = class UserInfoCommand extends Command {
 			const roles = member.roles.map(r => r.toString()).slice(1).join(' ');
 
 			embed.setThumbnail(user.avatarURL({ size: 512 }))
-				.setColor(colour)
+				.setColor(embedColour)
 				.addField('User Details', stripIndents`
 					**Username** ${username}
 					**Joined:** ${joinedAt}

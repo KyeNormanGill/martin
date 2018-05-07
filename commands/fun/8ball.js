@@ -24,7 +24,7 @@ module.exports = class EightBallCommand extends Command {
 			name: '8ball',
 			description: 'Ask a question and get an answer.',
 			aliases: ['ask'],
-			group: group
+			group
 		});
 	}
 

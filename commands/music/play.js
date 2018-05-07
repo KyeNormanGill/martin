@@ -1,44 +1,43 @@
 const Command = require('../../structures/command.js');
-const { error } = require('../../util.js');
 const Song = require('../../structures/song.js');
-const YouTube = require('simple-youtube-api');
-const token = require('../../config.json').keys.google;
-const youtube = new YouTube(token);
+const { error } = require('../../util.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class PlayCommand extends Command {
 	constructor(group) {
 		super({
 			name: 'play',
-			description: 'Play a song in your voice channel!',
+			description: 'Play a song!.',
 			guildOnly: true,
-			aliases: ['song'],
-			group: group
+			group
 		});
 	}
 
 	async run(message, args) {
-		if (!args) return error('Please provide a song name or spotify URI!', message);
+		if (!args) return error('Please provide a song name!', message);
 
-		const voiceChannel = message.member.voiceChannel;
+		const { voiceChannel } = message.member;
 		if (!voiceChannel || voiceChannel.type !== 'voice') return error('You\'re not in a voice channel.', message);
 
-		const baseData = await youtube.searchVideos(args, 1);
-		if (!baseData.length) return error('No songs found! Try again.', message);
+		const songs = await message.client.songParser.load(`ytsearch:${args}`);
 
-		const vidData = await youtube.getVideoByID(baseData[0].id);
-		if (!vidData) return error('There was a problem with youtube\'s api', message);
+		if (!songs) return error(`No songs found with name: **${args}**`, message);
+
+		const currentSong = songs[0];
+		if (currentSong.info.isStream) return error('Sorry! I can\'t play streams', message);
 
 		try {
 			const song = new Song({
-				name: vidData.title,
-				URL: `https://www.youtube.com/watch?v=${vidData.id}`,
+				name: currentSong.info.title,
+				track: currentSong.track,
 				requestedBy: message.member,
-				length: vidData.duration,
-				imageURL: `https://img.youtube.com/vi/${vidData.id}/mqdefault.jpg`
+				length: currentSong.info.length,
+				imageURL: `https://img.youtube.com/vi/${currentSong.info.identifier}/mqdefault.jpg`
 			});
 
 			song.play(message);
 		} catch (e) {
+			console.error(e);
 			return error('No songs above 1 hour', message);
 		}
 	}
