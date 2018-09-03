@@ -11,11 +11,11 @@
   "dependencies": {
     "canvas": "2.0.0-alpha.9",
     "common-tags": "^1.7.2",
+    "snekfetch": "3.5.0",
     "discord.js": "github:discordjs/discord.js",
     "moment": "^2.20.1",
     "moment-timezone": "0.5.14",
     "moment-duration-format": "^2.2.0",
-    "simple-youtube-api": "^5.0.1",
     "fast-html-parser": "^1.0.1",
     "lavalink": "^0.4.3"
   }
