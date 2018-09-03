@@ -3,14 +3,31 @@ const { createCanvas, Image } = require('canvas');
 
 // Needs to be remade because idk how events work.
 module.exports = async (client, oldMem, newMem) => {
+	if (!newMem || !oldMem) return;
+	oldMem = oldMem.member;
+	newMem = newMem.member;
 	if (oldMem.user.bot) return;
-	const channel = newMem.guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
-		.find(chnl => chnl.topic.includes('[twitch]'));
-	if (!channel) return;
+	if (newMem.user.presence.activity && newMem.user.presence.activity.type === 'STREAMING') {
+		if (client.streamedRecently.includes(newMem.id)) return; // If users twitch notif has been posted return.
 
-	if (newMem.user.presence.game && newMem.user.presence.game.streaming && !newMem.client.streamedRecently.includes(newMem.id)) {
-		const streamID = newMem.user.presence.game.url.split('/').slice(3).join();
-		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${message.client.config.twitch}`;
+		// Add user to cache to ignore within a few hours.
+		newMem.client.streamedRecently.push(newMem.id);
+		setTimeout(() => {
+			newMem.client.streamedRecently.splice(newMem.client.streamedRecently.indexOf(newMem.id), 1);
+		}, 21600000);
+
+		// Find all channels with twitch topic and user in the guild.
+		const guilds = client.guilds.filter(guild => guild.members.has(newMem.id));
+		const channels = guilds.map(guild => {
+			return guild.channels.filter(chnel => chnel.type === 'text' && chnel.topic)
+				.find(chnl => chnl.topic.includes('[twitch]'));
+		});
+
+		if (!channels) return console.log('no channels');
+
+
+		const streamID = newMem.user.presence.activity.url.split('/').slice(3).join();
+		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${newMem.client.config.twitch}`;
 
 		const { body: twitch } = await snekfetch.get(url);
 		const { body: background } = await snekfetch.get(twitch.stream.preview.large);
@@ -40,14 +57,14 @@ module.exports = async (client, oldMem, newMem) => {
 		bg.src = background;
 
 		ctx.drawImage(bg, 19, 19, 512, 288);
-		channel.send(`Go check them out! <${twitch.stream.channel.url}>`, { files: [{ attachment: canvas.toBuffer() }] })
-			.then(() => {
-				console.log(`Added ${newMem.user.username} to streamed recently`);
-				newMem.client.streamedRecently.push(newMem.id);
-
-				setTimeout(() => {
-					newMem.client.streamedRecently.splice(newMem.client.streamedRecently.indexOf(newMem.id), 1);
-				}, 21600000);
-			}).catch(console.error);
+		
+		channels.forEach(channel => {
+			if (channel) {
+				channel.send(`Go check them out! <${twitch.stream.channel.url}>`, { files: [{ attachment: canvas.toBuffer() }] })
+					.catch(console.log);
+			}
+		});
+		
+		console.log(`Added ${newMem.user.username} to streamed recently`);
 	}
 };
