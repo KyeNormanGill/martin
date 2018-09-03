@@ -18,6 +18,8 @@ const client = new Client({
 	disabledEvents: ['TYPING_START', 'RELATIONSHIP_ADD', 'RELATIONSHIP_REMOVE', 'USER_NOTE_UPDATE']
 });
 
+client.on('error', console.log);
+
 init(client);
 
 client.login(client.config.token).catch(e => console.error(e));
