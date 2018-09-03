@@ -27,17 +27,22 @@ module.exports = {
 		message.channel.send(`<:error:353927476885585930> | ${errorText}`);
 	},
 	updateStats: async client => {
-		post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
-			.set('Authorization', client.config.dbots)
-			.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
-			.end();
-
-		post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
-			.set('Authorization', client.config.botspw)
-			.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
-			.end();
+		try {
+			await post(`https://discordbots.org/api/bots/${client.user.id}/stats`)
+				.set('Authorization', client.config.dbots)
+				.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
+				.end();
+	
+			await post(`https://bots.discord.pw/api/bots/${client.user.id}/stats`)
+				.set('Authorization', client.config.botspw)
+				.send({ server_count: client.guilds.size }) // eslint-disable-line camelcase
+				.end();
+		} catch (e) {
+			console.log('Failed bot count upload');
+		}
 
 		client.user.setActivity(`${client.prefix}help | ${client.guilds.size} guilds`);
+
 	},
 	init: async client => {
 		const events = await readdir(client.eventPath);
