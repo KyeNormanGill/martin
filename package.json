@@ -17,6 +17,6 @@
     "moment-timezone": "0.5.14",
     "moment-duration-format": "^2.2.0",
     "fast-html-parser": "^1.0.1",
-    "lavalink": "^0.4.3"
+    "lavalink": "2.1.1"
   }
 }

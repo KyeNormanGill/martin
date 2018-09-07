@@ -6,16 +6,15 @@ require('moment-duration-format');
 module.exports = class Song {
 	constructor(options = {}) {
 		if (options.name === undefined) throw Error('Song name not provided!');
-		if (options.track === undefined) throw Error('Song URL not provided!');
 		if (options.requestedBy === undefined) throw Error('Requested ID not provided!');
 		if (options.length === undefined) throw Error('Song length not provided!');
 		if (options.imageURL === undefined) throw Error('Song image not provided!');
 
 		this.name = options.name;
-		this.track = options.track;
 		this.requestedBy = options.requestedBy;
 		this.length = this._formatLength(options.length);
 		this.imageURL = options.imageURL;
+		this.obj = options.obj;
 	}
 
 	getEmbedObject() {
@@ -36,7 +35,8 @@ module.exports = class Song {
 			track: this.track,
 			requestedBy: this.requestedBy,
 			length: this.length,
-			imageURL: this.imageURL
+			imageURL: this.imageURL,
+			obj: this.obj
 		};
 	}
 
@@ -59,9 +59,10 @@ module.exports = class Song {
 	async _playSong(message) {
 		const queue = message.client.queues.get(message.guild.id);
 
-		const player = message.guild.player;
-		await player.join(message.member.voiceChannelID, { deaf: false, mute: false });
-		await player.play(queue[0].track);
+		const player = message.client.lavalink.players.get(message.guild.id);
+		await player.join(message.member.voice.channelID, { deaf: false, mute: false });
+		console.log(queue[0].obj);
+		await player.play(queue[0].obj);
 		player.once('event', async e => {
 			console.log(e);
 			if (e.reason === 'STOPPED' || e.reason === 'FINISHED') {

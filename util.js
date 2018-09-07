@@ -65,10 +65,5 @@ module.exports = {
 			}
 		}
 		console.log(`Loaded ${client.commands.size} commands!`);
-
-		setTimeout(() => {
-			client.lavalink.connect('ws://lavalink:8080');
-			console.log('Lavalink connected!');
-		}, 10000);
 	}
 };
