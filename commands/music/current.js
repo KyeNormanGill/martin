@@ -16,8 +16,8 @@ module.exports = class CurrentCommand extends Command {
 	}
 
 	run(message) {
-		const { voiceChannel } = message.guild.me;
-		if (!voiceChannel) return error('I can\'t tell you the songs if i\'m not in a voice channel playing them.', message);
+		const { channel } = message.guild.me.voice;
+		if (!channel) return error('I can\'t tell you the songs if i\'m not in a voice channel playing them.', message);
 
 		const info = message.client.queues.get(message.guild.id);
 		if (!info) return error('No songs are playing!', message);
