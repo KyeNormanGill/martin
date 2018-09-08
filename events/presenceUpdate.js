@@ -25,11 +25,11 @@ module.exports = async (client, oldMem, newMem) => {
 
 		if (!channels) return console.log('no channels');
 
-
 		const streamID = newMem.user.presence.activity.url.split('/').slice(3).join();
 		const url = `https://api.twitch.tv/kraken/streams/${streamID}?client_id=${newMem.client.config.twitch}`;
 
 		const { body: twitch } = await snekfetch.get(url);
+		if (!twitch.stream) return;
 		const { body: background } = await snekfetch.get(twitch.stream.preview.large);
 
 		const canvas = createCanvas(550, 400);
