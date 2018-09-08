@@ -34,7 +34,7 @@ module.exports = class HelpCommand extends Command {
 			const embed = new MessageEmbed()
 				.setColor(embedColour)
 				.setTitle(command.name)
-				.setDescription(`**Description:** ${command.description}${command.aliases.length ? `\n\n**Aliases:** ${command.aliases.join(', ')}` : ''}`);
+				.setDescription(`**Description:** ${command.description}${command.example ? `\n\n**Example:** ${command.example}` : ''}${command.aliases.length ? `\n\n**Aliases:** ${command.aliases.join(', ')}` : ''}`);
 
 			await message.channel.send({ embed });
 		}

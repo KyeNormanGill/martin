@@ -5,6 +5,7 @@ module.exports = class Command {
 		if (!options.group) throw Error(`${options.name} has no group`);
 		if (!options.guildOnly) options.guildOnly = false;
 		if (!options.ownerOnly) options.ownerOnly = false;
+		if (!options.example) options.example = '';
 		if (!options.aliases) options.aliases = [];
 		if (!options.perms) options.perms = [];
 
@@ -13,6 +14,7 @@ module.exports = class Command {
 		this.guildOnly = options.guildOnly;
 		this.ownerOnly = options.ownerOnly;
 		this.aliases = options.aliases;
+		this.example = options.example;
 		this.perms = options.perms;
 		this.group = options.group;
 	}
