@@ -61,7 +61,6 @@ module.exports = class Song {
 
 		const player = message.client.lavalink.players.get(message.guild.id);
 		await player.join(message.member.voice.channelID, { deaf: false, mute: false });
-		console.log(queue[0].obj);
 		await player.play(queue[0].obj);
 		player.once('event', async e => {
 			console.log(e);
