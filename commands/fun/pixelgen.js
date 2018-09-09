@@ -1,6 +1,8 @@
 const Command = require('../../structures/command.js');
 const { error } = require('../../util.js');
 const { createCanvas } = require('canvas');
+const { performance } = require('perf_hooks');
+const { get } = require('snekfetch');
 
 module.exports = class PixelGenCommand extends Command {
 	constructor(group) {
@@ -13,13 +15,21 @@ module.exports = class PixelGenCommand extends Command {
 		});
 	}
 
-	run(message, args) {
-		args = args.split(';');
+	async run(message, args) {
+		let payload;
+		const time1 = performance.now();
 
-		const colours = args[0].split(',');
+		if (message.content.includes('hastebin.com/raw')) {
+			const { body } = await get(args);
+			payload = body.toString().split(';');
+		} else {
+			payload = args.split(';');
+		}
+
+		const colours = payload[0].split(',');
 		const positions = [];
-		for (let i = 1; i < args.length; i++) {
-			positions.push(args[i].split(','))
+		for (let i = 1; i < payload.length; i++) {
+			positions.push(payload[i].split(','))
 		}
 
 		const canvas = createCanvas(positions[0].length * 30, positions.length * 30);
@@ -33,6 +43,6 @@ module.exports = class PixelGenCommand extends Command {
 			}
 		}
 
-		message.channel.send({ files: [{ attachment: canvas.toBuffer() }] });
+		await message.channel.send(`Generated image took: ${Math.round(performance.now() - time1)} milliseconds`,{ files: [{ attachment: canvas.toBuffer() }] });
 	}
 };
