@@ -1,8 +1,10 @@
 const Command = require('../../structures/command.js');
 const { error } = require('../../util.js');
+const { embedColour } = require('../../config.json')
 const { createCanvas } = require('canvas');
 const { performance } = require('perf_hooks');
 const { get } = require('snekfetch');
+const { MessageEmbed, MessageAttachment} = require('discord.js');
 
 module.exports = class PixelGenCommand extends Command {
 	constructor(group) {
@@ -16,6 +18,7 @@ module.exports = class PixelGenCommand extends Command {
 	}
 
 	async run(message, args) {
+		const pre = await message.channel.send('Generating image!');
 		let payload;
 		const time1 = performance.now();
 
@@ -42,7 +45,14 @@ module.exports = class PixelGenCommand extends Command {
 				ctx.fillRect(i * 30, o * 30, 30, 30);
 			}
 		}
+		
+		const embed = new MessageEmbed()
+			.setColor(embedColour)
+			.attachFiles([new MessageAttachment().setFile(canvas.toBuffer()).setName('file.png')])
+			.setImage('attachment://file.png')
+			.setDescription(`Generated image took: ${Math.round(performance.now() - time1)} milliseconds`);
 
-		await message.channel.send(`Generated image took: ${Math.round(performance.now() - time1)} milliseconds`,{ files: [{ attachment: canvas.toBuffer() }] });
+		await message.channel.send(embed);
+		await pre.delete();
 	}
 };
