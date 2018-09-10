@@ -35,17 +35,25 @@ module.exports = class PixelGenCommand extends Command {
 			positions.push(payload[i].split(','))
 		}
 
-		const canvas = createCanvas(positions[0].length * 30, positions.length * 30);
+		const canvas = createCanvas(positions[0].length * 5, positions.length * 5);
 		const ctx = canvas.getContext('2d');
 
 		for (let o = 0; o < positions.length; o++) {
 			for (let i = 0; i < positions[o].length; i++) {
-				if (!colours[(positions[o][i] - 1)]) return error(`Colour in position ${(positions[o][i])} does not exist.\nNeed help? Use m)help pixelgen!`, message);
-				ctx.fillStyle = colours[(positions[o][i] - 1)];
-				ctx.fillRect(i * 30, o * 30, 30, 30);
+				const pos = positions[o][i].trim();
+				let style = 'rgba(0,0,0,0)';
+				if (pos.toLowerCase() !== 't') {
+					if (!colours[(pos - 1)]) {
+						await pre.delete();
+						return error(`Colour in position ${(pos)} does not exist.\nNeed help? Use m)help pixelgen!`, message);
+					}
+					style = colours[(pos - 1)];
+				}
+				ctx.fillStyle = style;
+				ctx.fillRect(i * 5, o * 5, 5, 5);
 			}
 		}
-		
+
 		const embed = new MessageEmbed()
 			.setColor(embedColour)
 			.attachFiles([new MessageAttachment().setFile(canvas.toBuffer()).setName('file.png')])
